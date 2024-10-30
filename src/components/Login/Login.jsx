@@ -30,8 +30,8 @@ const Login = (props) => {
                 </label>
             </div>
             <button className='btn' type='submit'>{t('LOG IN')}</button>
-            <a href="#" className='forgot-password'>{t('forgot your password?')}</a>
-            <p className="account-text">{t('don\'t have an account?')} <a id="sign-up-btn2" onClick={() => { props.toggleSignUpMode(); props.changePath('/signup'); }}>{t('Sign Up')}</a></p>
+            <a href="#forgotpassword" className='forgot-password'>{t('forgot your password?')}</a>
+            <p className="account-text">{t('don\'t have an account?')} <a href='#signup' id="sign-up-btn2" onClick={() => { props.toggleSignUpMode(); props.changePath('/signup'); }}>{t('Sign Up')}</a></p>
         </form>
     );
 }

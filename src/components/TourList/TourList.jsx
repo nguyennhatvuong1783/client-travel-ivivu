@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import './main.scss';
-import { HiOutlineLocationMarker } from "react-icons/hi";
-import { HiOutlineClipboardCheck } from "react-icons/hi";
-import Aos from 'aos';
-import 'aos/dist/aos.css';
+import './tourlist.scss';
 import img from '../../assets/images/img.jpg';
 import { formatCurrency } from '../../utils/CurrencyUtils';
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { HiOutlineClipboardCheck } from "react-icons/hi";
 
 const Data = [
     {
@@ -92,62 +90,45 @@ const Data = [
     }
 ];
 
-const Main = () => {
+const TourList = () => {
     const { t } = useTranslation();
 
-    // Scroll animation
-    useEffect(() => {
-        Aos.init({ duration: 1500 })
-    }, []);
-
     return (
-        <section className="main container section">
-            <div className="secTitle">
-                <h3 data-aos="fade-right" className="title">
-                    {t('most visited destinations')}
-                </h3>
-            </div>
-
-            <div className="secContent grid">
-                {
-                    Data.map(({ id, imgSrc, destTitle, location, grade, fees, description }) => {
-                        return (
-                            <div key={id} data-aos="fade-up" className="singleDestination">
-                                <div className="imageDiv">
-                                    <img src={imgSrc} alt={destTitle} />
-                                </div>
-
-                                <div className="cardInfo">
-                                    <h4 className="destTitle">{destTitle}</h4>
-                                    <span className="continent flex">
-                                        <HiOutlineLocationMarker className='icon' />
-                                        <span className="name">{location}</span>
-                                    </span>
-
-                                    <div className="fees flex">
-                                        <div className="grade">
-                                            <span>{grade}<small>+1</small></span>
-                                        </div>
-                                        <div className="price">
-                                            <h5>{formatCurrency(fees)}</h5>
-                                        </div>
-                                    </div>
-
-                                    <div className="desc">
-                                        <p>{description}</p>
-                                    </div>
-
-                                    <button className="btn flex">
-                                        {t('details')} <HiOutlineClipboardCheck className='icon' />
-                                    </button>
-                                </div>
+        <div className="tourList grid">
+            {
+                Data.map(({ id, imgSrc, destTitle, location, grade, fees, description }) => {
+                    return (
+                        <div key={id} data-aos="fade-up" className="singleDestination">
+                            <div className="imageDiv">
+                                <img src={imgSrc} alt={destTitle} />
                             </div>
-                        )
-                    })
-                }
-            </div>
-        </section>
+
+                            <div className="cardInfo">
+                                <h4 className="destTitle">{destTitle}</h4>
+                                <span className="continent flex">
+                                    <HiOutlineLocationMarker className='icon' />
+                                    <span className="name">{location}</span>
+                                </span>
+
+                                <div className="fees flex">
+                                    <div className="grade">
+                                        <span>{grade}<small>+1</small></span>
+                                    </div>
+                                    <div className="price">
+                                        <h5>{formatCurrency(fees)}</h5>
+                                    </div>
+                                </div>
+
+                                <button className="btn flex">
+                                    {t('details')} <HiOutlineClipboardCheck className='icon' />
+                                </button>
+                            </div>
+                        </div>
+                    )
+                })
+            }
+        </div>
     );
 }
 
-export default Main;
+export default TourList;

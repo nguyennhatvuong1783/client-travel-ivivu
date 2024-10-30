@@ -1,0 +1,182 @@
+:root {
+    --PrimaryColor: hsl(199, 100%, 33%);
+    --SecondaryColor: hsl(187, 85%, 43%);
+    --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+    --whiteColor: hsl(0, 0%, 100%);
+    --blackColor: ☐ hsl(201, 33%, 16%);
+    --textColor: hsl(240, 4%, 36%);
+    --whiteColorDeam: hsl(0, 0%, 93%);
+    --greyText: rgb(190, 190, 190);
+    --inputColor: rgb(239, 239, 239);
+    --bodyColor: rgb(240, 240, 246);
+    --cardBG: rgb(225, 225, 235);
+}
+
+.cardDiv {
+    position: relative;
+    padding: 2rem 1rem;
+    background: var(--whiteColor);
+    border-radius: 10px;
+    gap: 1rem;
+
+    label {
+        display: block;
+        color: var(--textColor);
+        padding-bottom: 10px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .label_total {
+        justify-content: space-between;
+        align-items: center;
+
+        .total {
+            color: var(--textColor);
+            font-size: 13px;
+            padding-bottom: 10px;
+        }
+    }
+
+    .input {
+        height: 40px;
+        padding: 0 1rem;
+        background: var(--inputColor);
+        border-radius: 3rem;
+
+        input {
+            background: none;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 13px;
+            font-weight: 500;
+
+            &::placeholder {
+                font-size: 13px;
+            }
+        }
+
+        .icon {
+            font-size: 18px;
+            color: var(--PrimaryColor) !important;
+            margin-left: 10px;
+        }
+
+        input[type=range] {
+            background: blue;
+            cursor: pointer;
+        }
+
+        input[type=date] {
+            cursor: pointer;
+        }
+    }
+
+    .searchOptions {
+        position: absolute;
+        background: var(--gradientColor);
+        width: max-content;
+        bottom: -0.7rem;
+        column-gap: .8rem;
+        padding: 5px 1rem;
+        border-radius: 3rem;
+        left: 50%;
+        transform: translate(-50%);
+        justify-content: center;
+        cursor: pointer;
+
+        &:hover {
+            background: var(--PrimaryColor);
+        }
+
+        .icon {
+            font-size: 18px;
+        }
+
+        span {
+            font-size: 13px;
+        }
+    }
+}
+
+// MEDIA QUIERIES ===============================>
+
+@media screen and (min-width: 500px) {
+    .cardDiv {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 660px) {
+    .cardDiv {
+        padding: 2rem 1rem;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (min-width: 1240px) {
+    .cardDiv {
+        padding: 2rem 1rem;
+        grid-template-columns: repeat(3, 1fr);
+
+        .input {
+            margin-bottom: 1rem;
+        }
+
+        .searchOptions {
+            bottom: -1rem;
+            padding: 8px 1rem;
+
+            span {
+                font-size: 17px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1404px) {
+    .cardDiv {
+        padding: 3rem 2rem;
+
+        label {
+            font-size: 20px;
+        }
+
+        .input {
+            height: 50px;
+            padding: 0 1.4rem;
+
+            input {
+                font-size: 20px;
+
+                &::placeholder {
+                    font-size: 20px;
+                }
+            }
+
+            .icon {
+                font-size: 25px;
+            }
+        }
+
+        .label_total {
+
+            .total {
+                font-size: 20px;
+            }
+        }
+
+        .searchOptions {
+            padding: 10px 1.6rem;
+
+            span {
+                font-size: 20px;
+            }
+
+            .icon {
+                font-size: 20px;
+            }
+        }
+    }
+}

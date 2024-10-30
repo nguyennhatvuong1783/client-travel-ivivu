@@ -35,7 +35,7 @@ const Register = (props) => {
             </div>
             <p className="msg-sign-up-confirm-password" id="msg-error"></p>
             <button className='btn' type='submit' id='btn-register'>{t('SIGN UP')}</button>
-            <p className="account-text">{t('have an account?')} <a id="sign-in-btn2" onClick={() => { props.toggleSignUpMode(); props.changePath('/login'); }}>{t('Log In')}</a></p>
+            <p className="account-text">{t('have an account?')} <a href='#login' id="sign-in-btn2" onClick={() => { props.toggleSignUpMode(); props.changePath('/login'); }}>{t('Log In')}</a></p>
         </form>
     );
 }

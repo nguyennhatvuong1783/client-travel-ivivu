@@ -3,7 +3,7 @@
     --SecondaryColor: hsl(187, 85%, 43%);
     --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
     --whiteColor: hsl(0, 0%, 100%);
-    --blackColor: ☐ hsl(201, 33%, 16%);
+    --blackColor: hsl(201, 33%, 16%);
     --textColor: hsl(240, 4%, 36%);
     --whiteColorDeam: hsl(0, 0%, 93%);
     --greyText: rgb(190, 190, 190);
@@ -144,6 +144,18 @@
 }
 
 // MEDIA QUERIES =========================================>
+
+@media screen and (max-width: 499px) {
+    .secContent {
+        .singleDestination {
+            .cardInfo {
+                .btn {
+                    margin: 1rem auto 0;
+                }
+            }
+        }
+    }
+}
 
 @media screen and (min-width: 500px) {
     .title {

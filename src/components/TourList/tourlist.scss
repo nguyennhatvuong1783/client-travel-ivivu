@@ -1,0 +1,225 @@
+:root {
+    --PrimaryColor: hsl(199, 100%, 33%);
+    --SecondaryColor: hsl(187, 85%, 43%);
+    --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+    --whiteColor: hsl(0, 0%, 100%);
+    --blackColor: hsl(201, 33%, 16%);
+    --textColor: hsl(240, 4%, 36%);
+    --whiteColorDeam: hsl(0, 0%, 93%);
+    --greyText: rgb(190, 190, 190);
+    --inputColor: rgb(239, 239, 239);
+    --bodyColor: rgb(240, 240, 246);
+    --cardBG: rgb(225, 225, 235);
+}
+
+.tourList {
+    flex: 1;
+    gap: 1.5rem;
+
+    .singleDestination {
+        display: flex;
+        height: 300px;
+        border-radius: 10px;
+        align-items: center;
+        background: var(--cardBG);
+        box-shadow: 0 2px 4px rgba(140, 140, 141, 0.549);
+        overflow: hidden;
+
+        .imageDiv {
+            height: 300px;
+            width: 400px;
+            overflow: hidden;
+
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                transition: 2s ease;
+            }
+
+            &:hover {
+                img {
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        .cardInfo {
+            position: relative;
+            flex: 1;
+            height: 100%;
+            padding: 3rem 2rem 2rem;
+            background: var(--cardBG);
+
+            &:hover {
+                background: var(--cardHover);
+                box-shadow: 1 4px 4px rgba(85, 85, 114, 0.549);
+                transition: .3s ease;
+            }
+
+            .name {
+                color: var(--textColor);
+            }
+
+            .destTitle {
+                color: var(--blackColor);
+                font-size: 2rem !important;
+                font-weight: 700;
+            }
+
+            .continent {
+                position: absolute;
+                top: 3.5rem;
+                right: 2rem;
+                font-size: 2rem !important;
+                gap: .5rem;
+
+                .icon {
+                    color: var(--textColor);
+                    font-size: 18px;
+                }
+            }
+
+            .grade {
+                position: absolute;
+                bottom: 3rem;
+                left: 2rem;
+                font-size: 1rem;
+                color: var(--textColor);
+
+                small {
+                    text-align: center;
+                    background: var(--gradientColor);
+                    border-radius: 1rem;
+                    color: var(--whiteColor);
+                    padding: 1px 20px;
+                }
+            }
+
+            .price {
+                position: absolute;
+                bottom: 6rem;
+                right: 2rem;
+                font-size: 2rem !important;
+            }
+
+
+            .btn {
+                position: absolute;
+                bottom: 2rem;
+                right: 2.3rem;
+                font-weight: 600;
+
+                .icon {
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1420px) {
+    .tourList {
+        .singleDestination {
+            height: 200px;
+
+            .imageDiv {
+                height: 200px;
+                width: 300px;
+            }
+
+            .cardInfo {
+                padding: 2rem 1rem 1rem;
+
+                .destTitle {
+                    font-size: 1.25rem !important;
+                }
+
+                .continent {
+                    top: 2.5rem;
+                    right: 1rem;
+                    font-size: 1rem !important;
+                }
+
+                .grade {
+                    bottom: 2rem;
+                    left: 1rem;
+                    font-size: .8rem;
+
+                    small {
+                        padding: 1px 10px;
+                    }
+                }
+
+                .price {
+                    position: absolute;
+                    bottom: 3.5rem;
+                    right: 1rem;
+                    font-size: 1.5rem !important;
+                }
+
+
+                .btn {
+                    bottom: 1rem;
+                    right: 1.5rem;
+
+                    .icon {
+                        margin-left: 5px;
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 764px) {
+    .tourList {
+        .singleDestination {
+            height: auto;
+            display: grid;
+
+            .imageDiv {
+                height: 180px;
+                width: 100%;
+            }
+
+            .cardInfo {
+                position: static;
+                padding: 1rem;
+
+                .destTitle {
+                    position: static;
+                }
+
+                .continent {
+                    position: static;
+                }
+
+                .fees {
+                    width: 100%;
+                    justify-content: space-between;
+                    padding: 1rem;
+                    margin: 1rem 0;
+                    border-top: 1.5px solid var(--greyText);
+                    border-bottom: 1.5px solid var(--greyText);
+
+                    .grade {
+                        position: static;
+                        max-width: 100px;
+                        line-height: 20px;
+                    }
+
+                    .price {
+                        position: static;
+                    }
+                }
+
+                .btn {
+                    position: static;
+                    margin: 1rem auto 0;
+                }
+            }
+        }
+    }
+}
