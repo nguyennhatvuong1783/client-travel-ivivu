@@ -2,7 +2,7 @@
     "home": "Home",
     "tours": "Tours",
     "shop": "Shop",
-    "about": "About",
+    "language": "Language",
     "pages": "Pages",
     "news": "News",
     "contact": "Contact",
@@ -37,5 +37,7 @@
     "forgot your password?": "Forgot your password?",
     "name": "Name",
     "phone": "Phone",
-    "confirm password": "Confirm Password"
+    "confirm password": "Confirm Password",
+    "vietnamese": "Vietnamese",
+    "english": "English"
 }

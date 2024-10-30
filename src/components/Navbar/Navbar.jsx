@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { scrollToTop } from '../../utils/ScrollToTop';
 
 const Navbar = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [active, setActive] = useState('navBar');
 
     // Function to toggle navBar
@@ -19,6 +19,11 @@ const Navbar = () => {
     // Function to remove navBar
     const removeNavbar = () => {
         setActive('navBar')
+    };
+
+    // Function change language
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
     };
 
     return (
@@ -39,27 +44,31 @@ const Navbar = () => {
                         </li>
 
                         <li className="navItem">
-                            <a href="#" className="navLink">{t('tours')}</a>
+                            <a href="#tours" className="navLink">{t('tours')}</a>
                         </li>
 
                         <li className="navItem">
-                            <a href="#" className="navLink">{t('shop')}</a>
+                            <a href="#shop" className="navLink">{t('shop')}</a>
                         </li>
 
                         <li className="navItem">
-                            <a href="#" className="navLink">{t('about')}</a>
+                            <a href="#pages" className="navLink">{t('pages')}</a>
                         </li>
 
                         <li className="navItem">
-                            <a href="#" className="navLink">{t('pages')}</a>
+                            <a href="#news" className="navLink">{t('news')}</a>
                         </li>
 
                         <li className="navItem">
-                            <a href="#" className="navLink">{t('news')}</a>
+                            <a href="#contact" className="navLink">{t('contact')}</a>
                         </li>
 
                         <li className="navItem">
-                            <a href="#" className="navLink">{t('contact')}</a>
+                            <a href="#lang" className="navLink dropbtn">{t('language')}</a>
+                            <div className="dropdown-lang">
+                                <a href="#vi" onClick={() => changeLanguage('vi')}>{t('vietnamese')}</a>
+                                <a href="#en" onClick={() => changeLanguage('en')}>{t('english')}</a>
+                            </div>
                         </li>
 
                         <Link to={'/login'}>

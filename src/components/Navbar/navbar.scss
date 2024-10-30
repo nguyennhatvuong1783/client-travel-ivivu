@@ -75,6 +75,51 @@
                             color: var(--PrimaryColor);
                         }
                     }
+
+                    .dropdown-lang {
+                        display: none;
+                        position: absolute;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background-color: var(--whiteColor);
+                        min-width: 150px;
+                        margin-top: 5px;
+                        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                        z-index: 1;
+                        border-radius: .5rem;
+
+                        a {
+                            color: var(--textColor);
+                            font-size: 0.9rem;
+                            font-weight: 500;
+                            padding: 12px 16px;
+                            display: block;
+                            text-align: center;
+
+                            &:hover {
+                                color: var(--PrimaryColor);
+                            }
+                        }
+
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            top: -8px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 0;
+                            height: 0;
+                            border-left: 10px solid transparent;
+                            border-right: 10px solid transparent;
+                            border-bottom: 8px solid var(--whiteColor);
+                        }
+                    }
+
+                    &:hover {
+                        .dropdown-lang {
+                            display: block;
+                        }
+                    }
                 }
 
                 .btn {
@@ -146,6 +191,48 @@
                             color: var(--PrimaryColor);
                         }
                     }
+
+                    .dropdown-lang {
+                        display: none;
+                        position: absolute;
+                        background-color: var(--whiteColor);
+                        min-width: 160px;
+                        margin-top: 5px;
+                        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                        z-index: 1;
+                        border-radius: .5rem;
+
+                        a {
+                            color: var(--textColor);
+                            font-size: 0.9rem;
+                            font-weight: 500;
+                            padding: 10px 16px;
+                            display: block;
+                            text-align: left;
+
+                            &:hover {
+                                color: var(--PrimaryColor);
+                            }
+                        }
+
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            top: -8px;
+                            left: 30px;
+                            width: 0;
+                            height: 0;
+                            border-left: 10px solid transparent;
+                            border-right: 10px solid transparent;
+                            border-bottom: 8px solid var(--whiteColor);
+                        }
+                    }
+
+                    &:hover {
+                        .dropdown-lang {
+                            display: block;
+                        }
+                    }
                 }
 
                 .btn {
@@ -186,6 +273,19 @@
                 .navItem {
                     .navLink {
                         font-size: 1.3rem;
+                    }
+
+                    .dropdown-lang {
+                        min-width: 210px;
+
+                        a {
+                            font-size: 1.3rem;
+                            padding: 14px 20px;
+                        }
+
+                        &::before {
+                            left: 45px;
+                        }
                     }
                 }
 

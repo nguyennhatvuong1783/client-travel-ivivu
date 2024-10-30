@@ -2,7 +2,7 @@
     "home": "Trang chủ",
     "tours": "Tours",
     "shop": "Cửa hàng",
-    "about": "Về chúng tôi",
+    "language": "Ngôn ngữ",
     "pages": "Trang",
     "news": "Tin tức",
     "contact": "Liên lạc",
@@ -37,5 +37,7 @@
     "forgot your password?": "Quên mật khẩu?",
     "name": "Tên",
     "phone": "Số điện thoại",
-    "confirm password": "Xác nhận mật khẩu"
+    "confirm password": "Xác nhận mật khẩu",
+    "vietnamese": "Tiếng Việt",
+    "english": "Tiếng Anh"
 }
