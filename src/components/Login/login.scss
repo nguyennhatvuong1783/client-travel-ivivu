@@ -1,0 +1,81 @@
+:root {
+    --PrimaryColor: hsl(199, 100%, 33%);
+    --SecondaryColor: hsl(187, 85%, 43%);
+    --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+    --whiteColor: hsl(0, 0%, 100%);
+    --blackColor: ☐ hsl(201, 33%, 16%);
+    --textColor: hsl(240, 4%, 36%);
+    --whiteColorDeam: hsl(0, 0%, 93%);
+    --greyText: rgb(190, 190, 190);
+    --inputColor: rgb(239, 239, 239);
+    --bodyColor: rgb(240, 240, 246);
+    --cardBG: rgb(225, 225, 235);
+}
+
+form.sign-in-form {
+    opacity: 1;
+    transition: 0.5s ease-in-out;
+    transition-delay: 0.4s;
+
+    a.forgot-password {
+        margin: 12px auto;
+        color: var(--PrimaryColor);
+
+        &:hover {
+            color: var(--SecondaryColor);
+        }
+    }
+}
+
+.check-box-remember-me {
+    display: block;
+    margin: 12px auto;
+
+    label {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+
+        input {
+            border-radius: 4px;
+            width: 15px;
+            height: 15px;
+            margin-top: 1px;
+            cursor: pointer;
+        }
+
+        span {
+            margin-left: 5px;
+            font-size: 17px;
+            color: var(--PrimaryColor);
+            user-select: none;
+        }
+
+        span:hover {
+            color: var(--SecondaryColor);
+        }
+    }
+}
+
+.login-error {
+    width: 100%;
+    background: #ffebeb;
+    margin: 10px 0;
+    border: 2px solid #ff9696;
+    display: none;
+    align-items: center;
+
+    i {
+        flex: 1;
+        text-align: center;
+        color: red;
+        font-size: 20px;
+    }
+
+    p {
+        flex: 6;
+        width: 100%;
+        font-size: 17px;
+        margin: 10px 0;
+    }
+}

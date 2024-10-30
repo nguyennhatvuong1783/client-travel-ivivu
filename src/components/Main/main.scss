@@ -21,21 +21,9 @@
     .secTitle {
         .title {
             position: relative;
-            width: max-content;
             color: var(--textColor);
             margin: 1.5rem 0 2.5rem;
             z-index: 2;
-
-            &::after {
-                position: absolute;
-                content: '';
-                background: var(--SecondaryColor);
-                height: 4px;
-                width: 100%;
-                right: 0;
-                bottom: 2px;
-                z-index: -1;
-            }
         }
     }
 
@@ -167,6 +155,25 @@
 
         .singleDestination {
             height: auto;
+        }
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .secTitle {
+        .title {
+            width: max-content;
+
+            &::after {
+                position: absolute;
+                content: '';
+                background: var(--SecondaryColor);
+                height: 4px;
+                width: 100%;
+                right: 0;
+                bottom: 2px;
+                z-index: -1;
+            }
         }
     }
 }

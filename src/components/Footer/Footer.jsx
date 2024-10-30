@@ -11,6 +11,8 @@ import { FaTripadvisor } from "react-icons/fa";
 import { FiChevronRight } from "react-icons/fi";
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import { Link } from 'react-router-dom';
+import { scrollToTop } from '../../utils/ScrollToTop';
 
 const Footer = () => {
     const { t } = useTranslation();
@@ -44,9 +46,9 @@ const Footer = () => {
                 <div className="footerCard flex">
                     <div className="footerIntro flex">
                         <div className="logoDiv">
-                            <a href="#" className="logo flex">
+                            <Link to={'/'} className="logo flex" onClick={scrollToTop}>
                                 <img src={logo} alt="Logo" /> Travel.
-                            </a>
+                            </Link>
                         </div>
 
                         <div data-aos="fade-up" className="footerParagraph">

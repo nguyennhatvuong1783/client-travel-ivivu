@@ -25,5 +25,17 @@
     "insurance": "Bảo hiểm",
     "agency": "Đại lý",
     "tourism": "Du lịch",
-    "payment": "Thanh toán"
+    "payment": "Thanh toán",
+    "have an account?": "Bạn đã có tài khoản?",
+    "don't have an account?": "Bạn chưa có tài khoản?",
+    "LOG IN": "ĐĂNG NHẬP",
+    "SIGN UP": "ĐĂNG KÝ",
+    "Log In": "Đăng Nhập",
+    "Sign Up": "Đăng Ký",
+    "password": "Mật khẩu",
+    "remember me": "Ghi nhớ đăng nhập",
+    "forgot your password?": "Quên mật khẩu?",
+    "name": "Tên",
+    "phone": "Số điện thoại",
+    "confirm password": "Xác nhận mật khẩu"
 }

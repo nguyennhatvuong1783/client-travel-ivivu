@@ -6,7 +6,7 @@ import { HiOutlineClipboardCheck } from "react-icons/hi";
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import img from '../../assets/images/img.jpg';
-import { formatCurrency } from '../../utils/CurrencyUtils'
+import { formatCurrency } from '../../utils/CurrencyUtils';
 
 const Data = [
     {
@@ -90,7 +90,7 @@ const Data = [
         fees: '10000000',
         description: 'The epitome of romance, Bora Bora is one of the best travel destinations in the World. This place is known for its luxurious stays and adventurous activities. '
     }
-]
+];
 
 const Main = () => {
     const { t } = useTranslation();

@@ -25,5 +25,17 @@
     "insurance": "Insurance",
     "agency": "Agency",
     "tourism": "Tourism",
-    "payment": "Payment"
+    "payment": "Payment",
+    "have an account?": "Have an account?",
+    "don't have an account?": "Don't have an account?",
+    "LOG IN": "LOG IN",
+    "SIGN UP": "SIGN UP",
+    "Log In": "Log In",
+    "Sign Up": "Sign Up",
+    "password": "Password",
+    "remember me": "Remember me",
+    "forgot your password?": "Forgot your password?",
+    "name": "Name",
+    "phone": "Phone",
+    "confirm password": "Confirm Password"
 }

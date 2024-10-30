@@ -4,6 +4,8 @@ import './navbar.scss';
 import logo from '../../assets/images/logo.png';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { TbGridDots } from 'react-icons/tb';
+import { Link } from 'react-router-dom';
+import { scrollToTop } from '../../utils/ScrollToTop';
 
 const Navbar = () => {
     const { t } = useTranslation();
@@ -24,16 +26,16 @@ const Navbar = () => {
             <header className='header flex'>
 
                 <div className='logoDiv'>
-                    <a href='#' className='logo flex'>
+                    <Link to={'/'} className='logo flex' onClick={scrollToTop}>
                         <h1><img src={logo} alt="Logo" /> Travel.</h1>
-                    </a>
+                    </Link>
                 </div>
 
                 <div className={active}>
                     <ul className="navLists flex">
 
                         <li className="navItem">
-                            <a href="#" className="navLink">{t('home')}</a>
+                            <Link to={'/'} className="navLink" onClick={scrollToTop}>{t('home')}</Link>
                         </li>
 
                         <li className="navItem">
@@ -60,9 +62,11 @@ const Navbar = () => {
                             <a href="#" className="navLink">{t('contact')}</a>
                         </li>
 
-                        <button className='btn'>
-                            <a href="#">{t('book now')}</a>
-                        </button>
+                        <Link to={'/login'}>
+                            <button className='btn'>
+                                {t('book now')}
+                            </button>
+                        </Link>
                     </ul>
 
                     <div onClick={removeNavbar} className="closeNavbar">

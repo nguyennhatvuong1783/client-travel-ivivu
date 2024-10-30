@@ -56,9 +56,6 @@ li {
   border: none;
   outline: none;
   cursor: pointer;
-}
-
-.btn a {
   color: var(--whiteColor);
   font-weight: 500;
 }
