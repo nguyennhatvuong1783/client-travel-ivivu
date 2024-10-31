@@ -5,6 +5,7 @@ import { GrLocation } from 'react-icons/gr';
 import { HiFilter } from 'react-icons/hi';
 import { formatCurrency } from '../../../utils/CurrencyUtils';
 import Aos from 'aos';
+import { Link } from 'react-router-dom';
 
 const CardFilter = () => {
     const { t } = useTranslation();
@@ -46,11 +47,10 @@ const CardFilter = () => {
                     <input type="range" max="100000000" min="1000000" onChange={handleChangeRangeValue} />
                 </div>
             </div>
-
-            <div className="searchOptions flex">
+            <Link to={'/filter'} className="searchOptions flex">
                 <HiFilter className="icon" />
                 <span>{t('filter')}</span>
-            </div>
+            </Link>
         </div>
     );
 }

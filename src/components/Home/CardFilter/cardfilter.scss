@@ -85,6 +85,7 @@
         transform: translate(-50%);
         justify-content: center;
         cursor: pointer;
+        color: var(--whiteColor);
 
         &:hover {
             background: var(--PrimaryColor);

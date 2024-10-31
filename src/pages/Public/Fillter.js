@@ -1,7 +1,6 @@
 import React from 'react';
 import CardFilter from '../../components/Home/CardFilter/CardFilter'
 import Menu from '../../components/Menu/Menu'
-import Footer from '../../components/Footer/Footer';
 
 const Fillter = () => {
     return (
@@ -10,7 +9,6 @@ const Fillter = () => {
                 <CardFilter />
             </div>
             <Menu />
-            <Footer />
         </>
     );
 }

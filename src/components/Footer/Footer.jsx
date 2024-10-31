@@ -157,3 +157,13 @@ const Footer = () => {
 }
 
 export default Footer;
+
+
+const WithFooter = ({ children }) => (
+    <>
+        {children}
+        <Footer />
+    </>
+);
+
+export { WithFooter };
