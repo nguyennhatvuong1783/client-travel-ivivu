@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import './login.scss';
 import { FaCircleXmark } from "react-icons/fa6";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { FaLock, FaUser } from "react-icons/fa";
 
 const Login = (props) => {
     const { t } = useTranslation();
@@ -15,8 +15,8 @@ const Login = (props) => {
                 <p className="msg-sign-in"></p>
             </div>
             <div className="input-field">
-                <FaEnvelope className='icon' />
-                <input type="text" placeholder="Email" name="email" id="sign-in-email" required autoFocus autoComplete="username" />
+                <FaUser className='icon' />
+                <input type="text" placeholder={t('username')} name="username" id="sign-in-username" required autoFocus autoComplete="username" />
             </div>
             <div className="input-field">
                 <FaLock className='icon' />

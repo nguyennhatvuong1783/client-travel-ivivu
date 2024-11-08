@@ -5,6 +5,8 @@ import img from '../../assets/images/img.jpg';
 import { formatCurrency } from '../../utils/CurrencyUtils';
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { HiOutlineClipboardCheck } from "react-icons/hi";
+import { Link } from 'react-router-dom';
+import { scrollToTop } from '../../utils/ScrollToTop';
 
 const Data = [
     {
@@ -119,9 +121,11 @@ const TourList = () => {
                                     </div>
                                 </div>
 
-                                <button className="btn flex">
-                                    {t('details')} <HiOutlineClipboardCheck className='icon' />
-                                </button>
+                                <Link to={'/detail'} onClick={scrollToTop}>
+                                    <button className="btn flex">
+                                        {t('details')} <HiOutlineClipboardCheck className='icon' />
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     )

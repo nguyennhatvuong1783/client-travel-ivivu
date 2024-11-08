@@ -1,0 +1,40 @@
+:root {
+    --PrimaryColor: hsl(199, 100%, 33%);
+    --SecondaryColor: hsl(187, 85%, 43%);
+    --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+    --whiteColor: hsl(0, 0%, 100%);
+    --blackColor: hsl(201, 33%, 16%);
+    --textColor: hsl(240, 4%, 36%);
+    --whiteColorDeam: hsl(0, 0%, 93%);
+    --greyText: rgb(190, 190, 190);
+    --inputColor: rgb(239, 239, 239);
+    --bodyColor: rgb(240, 240, 246);
+    --cardBG: rgb(225, 225, 235);
+}
+
+.btnScroll {
+    position: fixed;
+    bottom: 5vh;
+    right: 5vh;
+    z-index: 3000;
+
+    .btn {
+        position: relative;
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        background: var(--PrimaryColor);
+        text-align: center;
+
+        &:hover {
+            background: var(--SecondaryColor);
+        }
+
+        .icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}

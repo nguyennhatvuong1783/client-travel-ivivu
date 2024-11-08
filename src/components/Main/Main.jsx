@@ -7,6 +7,8 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 import img from '../../assets/images/img.jpg';
 import { formatCurrency } from '../../utils/CurrencyUtils';
+import { Link } from 'react-router-dom';
+import { scrollToTop } from '../../utils/ScrollToTop';
 
 const Data = [
     {
@@ -137,9 +139,11 @@ const Main = () => {
                                         <p>{description}</p>
                                     </div>
 
-                                    <button className="btn flex">
-                                        {t('details')} <HiOutlineClipboardCheck className='icon' />
-                                    </button>
+                                    <Link to={'/detail'} onClick={scrollToTop}>
+                                        <button className="btn flex">
+                                            {t('details')} <HiOutlineClipboardCheck className='icon' />
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         )

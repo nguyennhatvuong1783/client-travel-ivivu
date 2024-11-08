@@ -35,10 +35,11 @@
     "password": "Mật khẩu",
     "remember me": "Ghi nhớ đăng nhập",
     "forgot your password?": "Quên mật khẩu?",
-    "name": "Tên",
+    "name": "Họ và Tên",
     "phone": "Số điện thoại",
     "confirm password": "Xác nhận mật khẩu",
     "vietnamese": "Tiếng Việt",
     "english": "Tiếng Anh",
-    "options": "Tùy chọn"
+    "options": "Tùy chọn",
+    "username": "Tên đăng nhập"
 }

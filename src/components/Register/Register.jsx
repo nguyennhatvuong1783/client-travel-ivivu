@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import './register.scss';
-import { FaUser, FaEnvelope, FaPhone, FaLock } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaPhone, FaLock, FaUserEdit } from "react-icons/fa";
 
 const Register = (props) => {
     const { t } = useTranslation();
@@ -10,9 +10,14 @@ const Register = (props) => {
         <form method="POST" className="sign-up-form">
             <h2 className="title">{t('Sign Up')}</h2>
             <div className="input-field" id="error-field-sign-up-name">
-                <FaUser className='icon' />
+                <FaUserEdit className='icon' />
                 <input type="text" placeholder={t('name')} name="name" id="sign-up-name" required autoComplete="name" />
             </div>
+            <div className="input-field" id="error-field-sign-up-username">
+                <FaUser className='icon' />
+                <input type="text" placeholder={t('username')} name="username" id="sign-up-username" required autoComplete="username" />
+            </div>
+            <p className="msg-sign-up-username" id="msg-error"></p>
             <p className="msg-sign-up-name" id="msg-error"></p>
             <div className="input-field" id="error-field-sign-up-email">
                 <FaEnvelope className='icon' />

@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar/Navbar';
 import LoginRegister from '../pages/Auth/LoginRegister';
 import Fillter from '../pages/Public/Fillter';
 import { WithFooter } from '../components/Footer/Footer';
+import TourDetailPage from '../pages/Public/TourDetailPage';
 
 const AppRoutes = () => {
     return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
                 <Route path='/login' element={<LoginRegister />} />
                 <Route path='/signup' element={<LoginRegister />} />
                 <Route path='/filter' element={<WithFooter><Fillter /></WithFooter>} />
+                <Route path='/detail' element={<WithFooter><TourDetailPage /></WithFooter>} />
             </Routes>
         </>
     );
