@@ -41,5 +41,12 @@
     "vietnamese": "Tiếng Việt",
     "english": "Tiếng Anh",
     "options": "Tùy chọn",
-    "username": "Tên đăng nhập"
+    "username": "Tên đăng nhập",
+    "MsgError": "Đã xảy ra lỗi.",
+    "LoginError": "Tên đăng nhập hoặc mật khẩu không chính xác.",
+    "PasswordError": "Mật khẩu phải dài từ 8 đến 20 ký tự.",
+    "ConfirmPasswordError": "Xác nhận mật khẩu không chính xác.",
+    "PhoneError": "Số điện thoại không hợp lệ.",
+    "Signed up successfully": "Đã đăng ký thành công.",
+    "UserError": "Tên đăng nhập đã được sử dụng."
 }

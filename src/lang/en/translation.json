@@ -41,5 +41,12 @@
     "vietnamese": "Vietnamese",
     "english": "English",
     "options": "Options",
-    "username": "Username"
+    "username": "Username",
+    "MsgError": "An error occurred.",
+    "LoginError": "Incorrect username or password.",
+    "PasswordError": "Password must be between 8 and 20 characters.",
+    "ConfirmPasswordError": "Confirm password incorrect.",
+    "PhoneError": "Invalid phone number.",
+    "Signed up successfully": "Signed up successfully.",
+    "UserError": "Username is already taken."
 }

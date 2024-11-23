@@ -65,7 +65,7 @@ form.sign-in-form {
     display: none;
     align-items: center;
 
-    i {
+    .icon {
         flex: 1;
         text-align: center;
         color: red;
@@ -78,4 +78,8 @@ form.sign-in-form {
         font-size: 17px;
         margin: 10px 0;
     }
+}
+
+.active-error {
+    display: flex;
 }

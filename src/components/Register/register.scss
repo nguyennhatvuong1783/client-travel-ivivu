@@ -20,6 +20,10 @@ form.sign-up-form {
     .btn {
         margin: 12px auto;
     }
+
+    .register-error {
+        border-color: red;
+    }
 }
 
 @media (max-width:635px) {
