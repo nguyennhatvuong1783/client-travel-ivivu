@@ -14,4 +14,12 @@ export const register = (registerData) => {
 
 export const myInfo = () => {
     return axiosInstance.get('/myInfo');
-};  
+};
+
+export const getUsers = () => {
+    return axiosInstance.get('/users');
+};
+
+export const deleteUser = (id) => {
+    return axiosInstance.delete(`/user/${id}`);
+};

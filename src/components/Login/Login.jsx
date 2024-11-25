@@ -3,12 +3,14 @@ import { useTranslation } from 'react-i18next';
 import './login.scss';
 import { FaCircleXmark } from "react-icons/fa6";
 import { FaLock, FaUser } from "react-icons/fa";
-import { login } from '../../services/authService';
+import { login, myInfo } from '../../services/authService';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/authContext';
 
 const Login = (props) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const { setUser } = useAuth();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -20,6 +22,8 @@ const Login = (props) => {
         try {
             const response = await login({ username, password });
             console.log(response);
+            const userInfo = await myInfo();
+            setUser(userInfo.data.data);
             navigate('/');
         } catch (err) {
             setError(true);

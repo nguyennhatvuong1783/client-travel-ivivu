@@ -7,7 +7,7 @@ const Dashboard = () => {
         <>
             <Sidebar />
             <div style={{
-                margin: "10vh 0 0 320px",
+                margin: "13vh 30px 0 350px",
             }}>
                 <Outlet />
             </div>

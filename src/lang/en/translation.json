@@ -61,5 +61,13 @@
     "Tour Guide": "Tour Guide",
     "Accommodation": "Accommodation",
     "Vehicle": "Vehicle",
-    "Company": "Company"
+    "Company": "Company",
+    "address": "Address",
+    "date of birth": "Date of birth",
+    "Search": "Search",
+    "Add": "Add",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Update": "Update",
+    "Action": "Action"
 }

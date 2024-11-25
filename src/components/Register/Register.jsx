@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import './register.scss';
 import { FaUser, FaEnvelope, FaPhone, FaLock, FaUserEdit } from "react-icons/fa";
-import { register, myInfo } from '../../services/authService';
+import { register } from '../../services/authService';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
@@ -75,18 +75,6 @@ const Register = (props) => {
             }
         }
     };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await myInfo();
-                console.log("Thành công: ", response);
-            } catch (err) {
-                console.log("Lỗi: ", err);
-            }
-        };
-        fetchData();
-    }, []);
 
     useEffect(() => {
         const passwordRegex = /^[A-Za-z0-9]{8,20}$/;

@@ -4,13 +4,17 @@ import './navbar.scss';
 import logo from '../../assets/images/logo.png';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { TbGridDots } from 'react-icons/tb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { scrollToTop } from '../../utils/ScrollToTop';
 import BtnScrollToTop from '../BtnScrollToTop/BtnScrollToTop';
+import { useAuth } from '../../context/authContext';
+import { logout } from '../../services/authService';
 
 const Navbar = () => {
+    const { user, loading } = useAuth();
     const { t, i18n } = useTranslation();
     const [active, setActive] = useState('navBar');
+    const navigate = useNavigate();
 
     // Function to toggle navBar
     const showNav = () => {
@@ -26,6 +30,23 @@ const Navbar = () => {
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
     };
+
+    const handleLogout = () => {
+        const callApiLogout = async () => {
+            try {
+                console.log(user);
+                await logout();
+                navigate("/");
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        callApiLogout();
+    };
+
+    if (loading) {
+        return;
+    }
 
     return (
         <>
@@ -73,11 +94,19 @@ const Navbar = () => {
                                 </div>
                             </li>
 
-                            <Link to={'/login'}>
-                                <button className='btn'>
-                                    {t('book now')}
+                            {!user && (
+                                <Link to={'/login'}>
+                                    <button className='btn'>
+                                        {t('book now')}
+                                    </button>
+                                </Link>
+                            )}
+
+                            {user && (
+                                <button className='btn' onClick={handleLogout}>
+                                    Đăng xuất
                                 </button>
-                            </Link>
+                            )}
                         </ul>
 
                         <div onClick={removeNavbar} className="closeNavbar">

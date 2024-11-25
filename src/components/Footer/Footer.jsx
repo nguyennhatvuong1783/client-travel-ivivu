@@ -11,7 +11,7 @@ import { FaTripadvisor } from "react-icons/fa";
 import { FiChevronRight } from "react-icons/fi";
 import Aos from 'aos';
 import 'aos/dist/aos.css';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { scrollToTop } from '../../utils/ScrollToTop';
 
 const Footer = () => {
@@ -159,9 +159,9 @@ const Footer = () => {
 export default Footer;
 
 
-const WithFooter = ({ children }) => (
+const WithFooter = () => (
     <>
-        {children}
+        <Outlet />
         <Footer />
     </>
 );
