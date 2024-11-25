@@ -48,5 +48,18 @@
     "ConfirmPasswordError": "Confirm password incorrect.",
     "PhoneError": "Invalid phone number.",
     "Signed up successfully": "Signed up successfully.",
-    "UserError": "Username is already taken."
+    "UserError": "Username is already taken.",
+    "Statistical": "Statistical",
+    "Booking": "Booking",
+    "Tour package": "Tour package",
+    "Destination": "Destination",
+    "Tour date": "Tour date",
+    "Users": "Users",
+    "Promotion": "Promotion",
+    "Review": "Review",
+    "Activity": "Activity",
+    "Tour Guide": "Tour Guide",
+    "Accommodation": "Accommodation",
+    "Vehicle": "Vehicle",
+    "Company": "Company"
 }

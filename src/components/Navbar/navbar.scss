@@ -18,11 +18,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--whiteColorDeam);
+    background: var(--whiteColor);
     width: 100%;
     padding: 1rem;
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(2, 15, 29, 0.904);
+    box-shadow: 0 3px 4px rgba(140, 140, 141, 0.549);
 
     .logo {
         color: var(--blackColor);
@@ -172,7 +172,7 @@
     }
 
     .header {
-        padding: 1.5rem 2rem;
+        padding: 1rem 2rem;
 
         .navBar {
             .navLists {

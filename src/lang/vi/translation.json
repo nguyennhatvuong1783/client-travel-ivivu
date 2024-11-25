@@ -48,5 +48,18 @@
     "ConfirmPasswordError": "Xác nhận mật khẩu không chính xác.",
     "PhoneError": "Số điện thoại không hợp lệ.",
     "Signed up successfully": "Đã đăng ký thành công.",
-    "UserError": "Tên đăng nhập đã được sử dụng."
+    "UserError": "Tên đăng nhập đã được sử dụng.",
+    "Statistical": "Thống kê",
+    "Booking": "Đặt chỗ",
+    "Tour package": "Gói tour",
+    "Destination": "Điểm đến",
+    "Tour date": "Lịch trình tour",
+    "Users": "Người dùng",
+    "Promotion": "Khuyến mãi",
+    "Review": "Đánh giá",
+    "Activity": "Hoạt động",
+    "Tour Guide": "Hướng dẫn viên",
+    "Accommodation": "Chỗ ở",
+    "Vehicle": "Phương tiện",
+    "Company": "Công ty du lịch"
 }
