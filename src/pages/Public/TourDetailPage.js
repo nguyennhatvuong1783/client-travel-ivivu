@@ -1,6 +1,5 @@
-import React from 'react';
-import TourDetail from '../../components/TourDetail/TourDetail';
-
+import React from "react";
+import TourDetail from "../../components/TourDetail/TourDetail";
 
 const TourDetailPage = () => {
     return (
@@ -8,6 +7,6 @@ const TourDetailPage = () => {
             <TourDetail />
         </>
     );
-}
+};
 
 export default TourDetailPage;

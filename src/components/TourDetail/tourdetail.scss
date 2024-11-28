@@ -1,7 +1,11 @@
 :root {
     --PrimaryColor: hsl(199, 100%, 33%);
     --SecondaryColor: hsl(187, 85%, 43%);
-    --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+    --gradientColor: linear-gradient(
+        to right,
+        hsl(187, 85%, 43%),
+        hsl(199, 100%, 33%)
+    );
     --whiteColor: hsl(0, 0%, 100%);
     --blackColor: hsl(201, 33%, 16%);
     --textColor: hsl(240, 4%, 36%);
@@ -13,9 +17,10 @@
 }
 
 .tourDetail {
+    float: left;
     grid-template-columns: repeat(1, 1fr);
-    margin: 15vh auto 15px;
-    width: 80%;
+    margin: 15vh 0 15px 10%;
+    width: 59%;
     gap: 1.2rem;
 
     .tourTitle {
@@ -46,7 +51,7 @@
     .baseInfo {
         background: var(--whiteColor);
         padding: 0 1.5rem;
-        border-radius: .5rem;
+        border-radius: 0.5rem;
         box-shadow: 0 2px 4px rgba(140, 140, 141, 0.549);
 
         .destDiv {
@@ -74,7 +79,7 @@
         }
 
         .feat {
-            padding: .5rem 0;
+            padding: 0.5rem 0;
 
             .featTitle {
                 font-size: 1.8rem;

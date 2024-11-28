@@ -69,5 +69,15 @@
     "Edit": "Edit",
     "Delete": "Delete",
     "Update": "Update",
-    "Action": "Action"
+    "Action": "Action",
+    "Logout": "Logout",
+    "Profile": "Profile",
+    "My booking": "My booking",
+    "Profile Information": "Profile Information",
+    "DescProfile": "Update your account's profile information name, email, phone number, address, and date of birth.",
+    "Update Password": "Update Password",
+    "DescUpdatePassword": "Ensure your account is using a long, random password to stay secure.",
+    "Current Password": "Current Password",
+    "New Password": "New Password",
+    "My Profile Information": "My Profile Information"
 }

@@ -1,0 +1,119 @@
+:root {
+    --PrimaryColor: hsl(199, 100%, 33%);
+    --SecondaryColor: hsl(187, 85%, 43%);
+    --gradientColor: linear-gradient(
+        to right,
+        hsl(187, 85%, 43%),
+        hsl(199, 100%, 33%)
+    );
+    --whiteColor: hsl(0, 0%, 100%);
+    --blackColor: hsl(201, 33%, 16%);
+    --textColor: hsl(240, 4%, 36%);
+    --whiteColorDeam: hsl(0, 0%, 93%);
+    --greyText: rgb(190, 190, 190);
+    --inputColor: rgb(239, 239, 239);
+    --bodyColor: rgb(240, 240, 246);
+    --cardBG: rgb(225, 225, 235);
+}
+
+body {
+    background: var(--bodyColor);
+}
+
+.profile-container {
+    width: 100%;
+    margin-top: 12vh;
+}
+
+.profile-container h1 {
+    text-align: center;
+    color: var(--PrimaryColor);
+    font-size: 40px;
+    margin-top: 20px;
+}
+
+.profile-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.profile-section {
+    color: var(--whiteColor);
+    margin: 20px 60px;
+    padding: 20px 35px;
+    background: var(--PrimaryColor);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 60%;
+}
+
+section header h2.profile-title {
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    color: var(--whiteColor);
+}
+
+section header p.profile-sub {
+    color: var(--whiteColorDeam);
+    margin-bottom: 30px;
+}
+
+.update-form {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 15px 0;
+}
+
+.update-form .update-input {
+    display: block;
+    width: 250px;
+    height: 42px;
+    background: var(--inputColor);
+    padding: 0 15px;
+    margin-top: 4px;
+    margin-bottom: 5px;
+    border-radius: 7px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--textColor);
+    border: 1px solid var(--greyText);
+}
+
+.update-form button {
+    width: 75px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 15px 0 0;
+    background: var(--whiteColor);
+    color: var(--PrimaryColor);
+    cursor: pointer;
+    border: 1px solid var(--PrimaryColor);
+    transition: background 0.3s, color 0.3s;
+}
+
+.update-form button:hover {
+    background: var(--SecondaryColor);
+    color: var(--whiteColor);
+}
+
+#msg-error {
+    color: red;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 450px) {
+    .profile-section {
+        width: 90%;
+    }
+
+    .profile-container {
+        margin-top: 100px;
+    }
+}

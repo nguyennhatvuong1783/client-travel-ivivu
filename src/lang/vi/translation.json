@@ -69,5 +69,15 @@
     "Edit": "Sửa",
     "Delete": "Xóa",
     "Update": "Cập nhật",
-    "Action": "Hành động"
+    "Action": "Hành động",
+    "Logout": "Đăng xuất",
+    "Profile": "Thông tin cá nhân",
+    "My booking": "Đơn đặt của tôi",
+    "Profile Information": "Thông tin cá nhân",
+    "DescProfile": "Cập nhật thông tin hồ sơ tài khoản của bạn bao gồm họ và tên, email, số điện thoại, địa chỉ và ngày sinh.",
+    "Update Password": "Thay đổi mật khẩu",
+    "DescUpdatePassword": "Hãy chắc chắn rằng tài khoản của bạn sử dụng mật khẩu dài và ngẫu nhiên để đảm bảo tính bảo mật.",
+    "Current Password": "Mật khẩu hiện tại",
+    "New Password": "Mật khẩu mới",
+    "My Profile Information": "Thông tin tài khoản cá nhân"
 }
