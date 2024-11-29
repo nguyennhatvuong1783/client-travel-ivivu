@@ -15,6 +15,7 @@ import {
 } from "../components/PrivateRoute/PrivateRoute";
 import Profile from "../pages/Auth/Profile";
 import MyBooking from "../pages/Auth/MyBooking/MyBooking";
+import Statistical from "../components/Dashboard/Statistical/Statistical";
 
 const AppRoutes = () => {
     return (
@@ -36,8 +37,8 @@ const AppRoutes = () => {
                 </Route>
                 <Route element={<PrivateAdminRoute />}>
                     <Route path="/dashboard" element={<Dashboard />}>
-                        <Route index element={<>statistical</>} />
-                        <Route path="statistical" element={<>statistical</>} />
+                        <Route index element={<Statistical />} />
+                        <Route path="statistical" element={<Statistical />} />
                         <Route path="booking" element={<>booking</>} />
                         <Route
                             path="tour_package"

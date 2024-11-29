@@ -1,71 +1,99 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getBooking } from "../../../services/authService";
 import { Table, Button, Typography, Space, message } from "antd";
+import { useTranslation } from "react-i18next";
+import { useAuth } from "../../../context/authContext";
 
 const { Text } = Typography;
 
 const MyBooking = () => {
-    const [bookings, setBookings] = useState([
-        {
-            id: 1,
-            room: { name: "Deluxe Room", type: "Single" },
-            created_at: "2024-11-01",
-            status: "Pending",
-            discount: "10% Off",
-        },
-        {
-            id: 2,
-            room: { name: "Superior Room", type: "Double" },
-            created_at: "2024-11-02",
-            status: "Confirmed",
-            discount: null,
-        },
-        {
-            id: 3,
-            room: { name: "Suite Room", type: "Suite" },
-            created_at: "2024-11-03",
-            status: "Cancelled",
-            discount: "5% Off",
-        },
-    ]);
+    const { t } = useTranslation();
+    const { user } = useAuth();
 
-    const handleCancel = (id) => {
+    const [bookings, setBookings] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchBookings = async () => {
+            try {
+                setLoading(true);
+                const response = await getBooking();
+                const filteredBookings = response.data.data.filter(
+                    (booking) => booking.user.id === user.id
+                );
+
+                setBookings(
+                    filteredBookings.map((booking) => ({
+                        id: booking.id,
+                        tourDate: {
+                            tourPackageName: booking.tourDate.tourPackage.name,
+                            departure_date: booking.tourDate.startDate,
+                        },
+                        participants: booking.participants,
+                        status: booking.status,
+                        discount: booking.promotions.length
+                            ? `${booking.promotions[0].discount}% Off`
+                            : null,
+                        total_price: booking.totalPrice,
+                    }))
+                );
+            } catch (error) {
+                console.error("Failed to fetch bookings:", error);
+                message.error("Failed to load bookings. Please try again.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchBookings();
+    }, [user.id]);
+
+    const handleCancel = async (id) => {
         if (window.confirm("Do you really want to cancel this booking?")) {
-            setBookings((prev) => prev.filter((booking) => booking.id !== id));
-            message.success("Booking canceled successfully.");
+            try {
+                // await axiosInstance.delete(`/api/bookings/${id}`);
+                setBookings((prev) =>
+                    prev.filter((booking) => booking.id !== id)
+                );
+                message.success("Booking canceled successfully.");
+            } catch (error) {
+                console.error("Failed to cancel booking:", error);
+                message.error("Failed to cancel booking. Please try again.");
+            }
         }
     };
 
     const columns = [
         {
-            title: "Booking ID",
+            title: t("bookingId"),
             dataIndex: "id",
             key: "id",
         },
         {
-            title: "Room Name",
-            dataIndex: ["room", "name"],
-            key: "roomName",
+            title: t("tourPackageName"),
+            dataIndex: ["tourDate", "tourPackageName"],
+            key: "tourPackageName",
         },
         {
-            title: "Room Type",
-            dataIndex: ["room", "type"],
-            key: "roomType",
+            title: t("number_of_participants"),
+            dataIndex: "participants",
+            key: "participants",
         },
         {
-            title: "Created in",
-            dataIndex: "created_at",
-            key: "createdAt",
+            title: t("Departure date"),
+            dataIndex: ["tourDate", "departure_date"],
+            key: "departure_date",
         },
         {
-            title: "Status",
+            title: t("Status"),
             dataIndex: "status",
             key: "status",
             render: (status) => (
                 <Text
                     type={
-                        status === "Cancelled"
+                        status === "CANCELLED"
                             ? "danger"
-                            : status === "Pending"
+                            : status === "PENDING"
                             ? "warning"
                             : "success"
                     }
@@ -75,13 +103,18 @@ const MyBooking = () => {
             ),
         },
         {
-            title: "Discounts",
+            title: t("Discounts"),
             dataIndex: "discount",
             key: "discount",
             render: (discount) => discount || "None",
         },
         {
-            title: "Activity",
+            title: t("total_price"),
+            dataIndex: "total_price",
+            key: "total_price",
+        },
+        {
+            title: t("Activity"),
             key: "activity",
             render: (_, record) => (
                 <Space>
@@ -91,10 +124,10 @@ const MyBooking = () => {
                             message.info("Payment feature coming soon!")
                         }
                     >
-                        Payment Online
+                        {t("Payment Online")}
                     </Button>
                     <Button danger onClick={() => handleCancel(record.id)}>
-                        Cancel
+                        {t("Cancel")}
                     </Button>
                 </Space>
             ),
@@ -103,15 +136,16 @@ const MyBooking = () => {
 
     return (
         <div style={{ marginTop: "10vh", padding: "20px" }}>
-            <Typography.Title level={3}>YOUR BOOKING</Typography.Title>
+            <Typography.Title level={3}>{t("YOUR BOOKING")}</Typography.Title>
             <Text type="secondary" style={{ fontStyle: "italic" }}>
-                *Your booking will expire after 7 days if you don't check in
+                *
             </Text>
             <Table
                 dataSource={bookings}
                 columns={columns}
                 rowKey="id"
                 bordered
+                loading={loading} // Hiển thị trạng thái loading
                 style={{ marginTop: "20px" }}
             />
         </div>

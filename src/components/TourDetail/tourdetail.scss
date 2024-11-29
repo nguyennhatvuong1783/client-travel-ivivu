@@ -67,9 +67,11 @@
                 justify-content: center;
                 gap: 5px;
                 font-size: 1.5rem;
+                color: var(--textColor);
 
                 h2 {
                     font-size: 1.8rem;
+                    color: var(--blackColor);
                 }
 
                 .icon {
@@ -96,12 +98,115 @@
                         text-align: center;
                         margin-bottom: 1rem;
                         font-size: 1.5rem;
+                        color: var(--textColor);
 
                         .icon {
                             font-size: 1.2rem;
                             color: var(--SecondaryColor);
                         }
                     }
+                }
+            }
+
+            .tour_desc {
+                text-align: justify;
+                color: var(--textColor);
+                font-size: 1.4rem;
+                margin: 2rem 0 1rem;
+            }
+
+            .tour_activities {
+                position: relative;
+                width: 100%;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                margin-bottom: 16px;
+                padding: 10px 16px 16px;
+                cursor: pointer;
+
+                h3 {
+                    margin: 0;
+                    margin-top: 8px;
+                    font-size: 1.5rem;
+                }
+
+                p {
+                    margin: 4px 0;
+                    font-size: 1rem;
+                    color: #888;
+                }
+
+                p.activity_name {
+                    margin: 8px 0 0;
+                    font-size: 1.2rem;
+                    color: var(--textColor);
+                }
+
+                .act_expand {
+                    margin-top: 12px;
+                    opacity: 0;
+                    max-height: 0;
+                    overflow: hidden;
+                    font-size: 1.2rem;
+                    color: var(--textColor);
+                    text-align: justify;
+                    transition: max-height 0.5s ease, opacity 0.3s ease;
+                    will-change: max-height, opacity;
+
+                    &.is_open {
+                        opacity: 1;
+                        max-height: 1000px;
+                    }
+                }
+
+                .icon {
+                    color: var(--textColor);
+                    position: absolute;
+                    top: 45px;
+                    right: 16px;
+                }
+            }
+
+            .tabs {
+                display: flex;
+                justify-content: space-around;
+                border-bottom: 2px solid #ddd;
+                margin-bottom: 10px;
+
+                .tab {
+                    background-color: transparent;
+                    border: none;
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    font-size: 1.2rem;
+                    transition: background-color 0.3s ease;
+
+                    &:hover {
+                        background: var(--whiteColorDeam);
+                    }
+
+                    &.active {
+                        font-weight: bold;
+                        border-bottom: 2px solid var(--PrimaryColor);
+                    }
+                }
+            }
+
+            .tab-content {
+                padding: 10px 20px;
+                border-radius: 5px;
+
+                ul {
+                    list-style-type: none;
+                    padding-left: 0;
+                }
+
+                li {
+                    margin: 10px 0;
+                    font-size: 1.1rem;
+                    color: var(--textColor);
                 }
             }
         }

@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../context/authContext";
 import { updateUser } from "../../services/authService";
 import { useTranslation } from "react-i18next";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const ProfileInfo = () => {
-    const { user } = useAuth();
+    const { user, setUser } = useAuth();
     const { t } = useTranslation();
+    const MySwal = withReactContent(Swal);
+    const inputPhone = useRef(null);
 
     const formatDate = (isoDate) => {
         if (!isoDate) return ""; // Handle empty case
@@ -31,14 +35,52 @@ const ProfileInfo = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const regexPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+        if (!regexPhoneNumber.test(formData.phone_number)) {
+            inputPhone.current.select();
+            return;
+        }
+        const Toast = MySwal.mixin({
+            toast: true,
+            position: "top",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = MySwal.stopTimer;
+                toast.onmouseleave = MySwal.resumeTimer;
+                toast.onclick = MySwal.close;
+            },
+        });
         try {
-            await updateUser(user.id, formData);
+            const response = await updateUser(user.id, formData);
+            setUser(response.data.data);
             setStatus("Profile updated successfully!");
             setErrors({});
+            Toast.fire({
+                icon: "success",
+                title: t("Profile updated successfully!"),
+            });
         } catch (error) {
             setErrors(error.response?.data?.errors || {});
+            Toast.fire({
+                icon: "error",
+                title: t("MsgError"),
+            });
         }
     };
+
+    useEffect(() => {
+        const regexPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+        const isPhoneError =
+            !regexPhoneNumber.test(formData.phone_number) &&
+            formData.phone_number !== "";
+        if (isPhoneError) {
+            setErrors({ phone: t("PhoneError") });
+        } else {
+            setErrors({});
+        }
+    }, [formData.phone_number]);
 
     return (
         <div>
@@ -71,7 +113,7 @@ const ProfileInfo = () => {
                     <label htmlFor="name">{t("name")}</label>
                     <input
                         type="text"
-                        name="name"
+                        name="full_name"
                         id="name"
                         className="update-input"
                         value={formData.full_name}
@@ -105,8 +147,9 @@ const ProfileInfo = () => {
                 <div>
                     <label htmlFor="phone">{t("phone")}</label>
                     <input
+                        ref={inputPhone}
                         type="tel"
-                        name="phone"
+                        name="phone_number"
                         id="phone"
                         className="update-input"
                         value={formData.phone_number}

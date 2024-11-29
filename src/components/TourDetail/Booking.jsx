@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+import { useAuth } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const Booking = () => {
+    const MySwal = withReactContent(Swal);
+
+    const navigate = useNavigate();
+    const { t } = useTranslation();
+    const { user } = useAuth();
+    const [hover, setHover] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [dates, setDates] = useState([]);
     const [quantity, setQuantity] = useState(1);
@@ -11,7 +22,7 @@ const Booking = () => {
         const fetchDates = async () => {
             // Dữ liệu giả lập
             const mockDates = [
-                { date: "2024-12-05", price: 3770000, isBestPrice: true },
+                { date: "2024-12-05", price: 30000, isBestPrice: true },
                 { date: "2024-12-12", price: 3770000, isBestPrice: true },
                 { date: "2024-12-19", price: 3770000, isBestPrice: false },
                 { date: "2024-12-26", price: 3770000, isBestPrice: false },
@@ -31,6 +42,25 @@ const Booking = () => {
         );
     };
 
+    const handleBooking = () => {
+        const Toast = MySwal.mixin({
+            toast: true,
+            position: "top",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = MySwal.stopTimer;
+                toast.onmouseleave = MySwal.resumeTimer;
+                toast.onclick = MySwal.close;
+            },
+        });
+        Toast.fire({
+            icon: "success",
+            title: t("Booking successfully"),
+        });
+    };
+
     const totalPrice = quantity * pricePerPerson;
 
     return (
@@ -45,11 +75,11 @@ const Booking = () => {
                 margin: "24.8vh 10% 0 0",
             }}
         >
-            <h3 style={{ fontSize: "20px", fontWeight: "bold" }}>
-                Lịch Trình và Giá Tour
+            <h3 style={{ fontSize: "1.7rem", fontWeight: "bold" }}>
+                {t("Tour Schedule and Price")}
             </h3>
-            <p style={{ fontSize: "14px", color: "#555" }}>
-                Chọn Lịch Trình và Xem Giá:
+            <p style={{ fontSize: "1.2rem", color: "#555", margin: "12px 0" }}>
+                {t("Select Schedule and View Prices")}
             </p>
 
             <div
@@ -89,9 +119,10 @@ const Booking = () => {
                         alignItems: "center",
                         gap: "10px",
                         marginBottom: "10px",
+                        fontSize: "1.2rem",
                     }}
                 >
-                    <p>Giá {quantity} người:</p>
+                    <p>{t("Number of people")}</p>
                     <div
                         style={{
                             display: "flex",
@@ -130,11 +161,12 @@ const Booking = () => {
                     style={{
                         marginTop: "10px",
                         fontWeight: "bold",
-                        fontSize: "16px",
+                        fontSize: "1.3rem",
                         color: "#ff5722",
                     }}
                 >
-                    Tổng Giá Tour: {totalPrice.toLocaleString("vi-VN")} VND
+                    {t("Total Tour Price")}
+                    {totalPrice.toLocaleString("vi-VN")} VND
                 </div>
             </div>
 
@@ -142,16 +174,20 @@ const Booking = () => {
                 style={{
                     marginTop: "15px",
                     padding: "10px 20px",
-                    background: "#ff5722",
+                    background: hover ? "#e64a19" : "#ff5722",
                     color: "#fff",
                     fontWeight: "bold",
                     border: "none",
                     borderRadius: "5px",
                     cursor: "pointer",
+                    fontSize: "1.2rem",
+                    transition: "background-color 0.3s ease",
                 }}
-                onClick={() => alert("Yêu cầu đặt thành công!")}
+                onClick={() => (user ? handleBooking() : navigate("/login"))}
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
             >
-                Yêu cầu đặt
+                {user ? t("Booking") : t("book now")}
             </button>
         </div>
     );

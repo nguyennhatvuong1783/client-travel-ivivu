@@ -34,3 +34,7 @@ export const updatePassword = (email, values) => {
         values
     );
 };
+
+export const getBooking = () => {
+    return axiosInstance.get(`/booking/`);
+};

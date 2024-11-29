@@ -8,13 +8,13 @@ const Profile = () => {
     const { t } = useTranslation();
 
     return (
-        <div class="profile-container">
+        <div className="profile-container">
             <h1>{t("My Profile Information")}</h1>
-            <div class="profile-content">
-                <div class="profile-section">
+            <div className="profile-content">
+                <div className="profile-section">
                     <ProfileInfo />
                 </div>
-                <div class="profile-section">
+                <div className="profile-section">
                     <ChangePassword />
                 </div>
             </div>
