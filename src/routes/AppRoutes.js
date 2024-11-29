@@ -26,6 +26,7 @@ import Reviews from "../components/Dashboard/Reviews/Reviews";
 import TourGuides from "../components/Dashboard/TourGuides/TourGuides";
 import Vehicles from "../components/Dashboard/Vehicles/Vehicles";
 import Companies from "../components/Dashboard/Companies/Companies";
+import TourPackages from "../components/Dashboard/TourPackages/TourPackages";
 
 const AppRoutes = () => {
     return (
@@ -35,7 +36,7 @@ const AppRoutes = () => {
                 <Route element={<WithFooter />}>
                     <Route path="/" element={<App />} />
                     <Route path="/filter" element={<Fillter />} />
-                    <Route path="/detail" element={<TourDetailPage />} />
+                    <Route path="/detail/:id" element={<TourDetailPage />} />
                 </Route>
                 <Route element={<PrivateUserRoute />}>
                     <Route path="/profile" element={<Profile />} />
@@ -50,10 +51,7 @@ const AppRoutes = () => {
                         <Route index element={<Statistical />} />
                         <Route path="statistical" element={<Statistical />} />
                         <Route path="booking" element={<Booking />} />
-                        <Route
-                            path="tour_package"
-                            element={<>tour_package</>}
-                        />
+                        <Route path="tour_package" element={<TourPackages />} />
                         <Route path="destination" element={<Destinations />} />
                         <Route path="tour_date" element={<TourDates />} />
                         <Route path="users" element={<Users />} />

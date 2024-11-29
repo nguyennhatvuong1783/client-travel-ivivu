@@ -1,7 +1,11 @@
 :root {
     --PrimaryColor: hsl(199, 100%, 33%);
     --SecondaryColor: hsl(187, 85%, 43%);
-    --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+    --gradientColor: linear-gradient(
+        to right,
+        hsl(187, 85%, 43%),
+        hsl(199, 100%, 33%)
+    );
     --whiteColor: hsl(0, 0%, 100%);
     --blackColor: hsl(201, 33%, 16%);
     --textColor: hsl(240, 4%, 36%);
@@ -43,7 +47,7 @@
             &:hover {
                 background: var(--cardHover);
                 box-shadow: 1 4px 4px rgba(85, 85, 114, 0.549);
-                transition: .3s ease;
+                transition: 0.3s ease;
             }
 
             .imageDiv {
@@ -71,10 +75,11 @@
                 .destTitle {
                     color: var(--blackColor);
                     font-size: 1.25rem;
+                    margin-bottom: 10px;
                 }
 
                 .continent {
-                    gap: .5rem;
+                    gap: 0.5rem;
 
                     .icon {
                         color: var(--textColor);
@@ -131,7 +136,7 @@
                     color: var(--whiteColor);
                     font-weight: 600;
                     justify-content: space-between;
-                    gap: .5rem;
+                    gap: 0.5rem;
 
                     .icon {
                         align-self: center;
@@ -178,7 +183,7 @@
 
             &::after {
                 position: absolute;
-                content: '';
+                content: "";
                 background: var(--SecondaryColor);
                 height: 4px;
                 width: 100%;
@@ -224,7 +229,7 @@
     }
 
     .btn {
-        padding: .8rem 1.8rem;
+        padding: 0.8rem 1.8rem;
         font-size: 1.1rem;
 
         .icon {

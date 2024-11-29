@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./login.scss";
+import { FiFacebook } from "react-icons/fi";
+import { FcGoogle } from "react-icons/fc";
 import { FaCircleXmark } from "react-icons/fa6";
 import { FaLock, FaUser } from "react-icons/fa";
-import { login, myInfo } from "../../services/authService";
+import {
+    login,
+    myInfo,
+    socialLogin,
+    socialLoginCallback,
+} from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import Swal from "sweetalert2";
@@ -18,6 +25,19 @@ const Login = (props) => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const [msgError, setMsgError] = useState("");
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(window.location.search);
+
+        const state = queryParams.get("state");
+        const code = queryParams.get("code");
+
+        if (state === "google") {
+            LoginCallback(code, state);
+        }
+
+        console.log({ state, code });
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -37,6 +57,34 @@ const Login = (props) => {
             } else {
                 setMsgError(t("MsgError"));
             }
+            console.log(err);
+        }
+    };
+
+    const LoginCallback = async (code, type) => {
+        try {
+            const response = await socialLoginCallback(code, type);
+            console.log(response);
+            const userInfo = await myInfo();
+            setUser(userInfo.data.data);
+            navigate("/");
+        } catch (err) {
+            setError(true);
+            console.log(err);
+        }
+    };
+
+    const handleSocialLogin = async (e, type) => {
+        e.preventDefault();
+        console.log(type);
+        try {
+            const response = await socialLogin(type);
+            console.log(response);
+            // const userInfo = await myInfo();
+            // setUser(userInfo.data.data);
+            window.location.href = response.data;
+        } catch (err) {
+            setError(true);
             console.log(err);
         }
     };
@@ -157,6 +205,16 @@ const Login = (props) => {
                     {t("Sign Up")}
                 </a>
             </p>
+            <div className="socialLogin">
+                <FiFacebook
+                    className="icon"
+                    onClick={(e) => handleSocialLogin(e, "facebook")}
+                />
+                <FcGoogle
+                    className="icon"
+                    onClick={(e) => handleSocialLogin(e, "google")}
+                />
+            </div>
         </form>
     );
 };

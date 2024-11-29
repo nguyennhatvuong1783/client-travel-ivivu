@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./tourdetail.scss";
 import { GrLocation } from "react-icons/gr";
@@ -6,6 +6,8 @@ import { GiCheckMark } from "react-icons/gi";
 import ImageCarousel from "./ImageCarousel";
 import Booking from "./Booking";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import { getTourPackagesById } from "../../services/authService";
 
 const tabData = {
     "Giá bao gồm": [
@@ -44,27 +46,42 @@ const tabData = {
 
 const TourDetail = () => {
     const { t } = useTranslation();
+    const { id } = useParams();
+    const [tour, setTour] = useState([]);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await getTourPackagesById(id);
+            setTour(response.data.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     // Dữ liệu mẫu
-    const [details, setDetails] = useState({
-        day: "Ngày 1",
-        title: "Sb Liên Khương/ Bến Xe - Đà Lạt Ngàn Hoa",
-        meals: "(Ăn Trưa, Tối)",
-        description: `Khởi hành từ sân bay Liên Khương hoặc bến xe. Tham quan Đà Lạt với những điểm đến nổi bật và trải nghiệm ẩm thực địa phương.Khám phá vẻ đẹp mộng mơ và quyến rũ của Đà Lạt trong
-                            2 ngày 1 đêm. Tour này dành cho những ai muốn trải
-                            nghiệm sự kết hợp hài hòa giữa thiên nhiên, kiến
-                            trúc và văn hóa đặc sắc của thành phố này. Đà Lạt
-                            không chỉ nổi tiếng với danh hiệu 'Thành Phố Ngàn
-                            Hoa' mà còn là điểm đến lý tưởng cho những ai yêu
-                            thích sự yên bình và không gian lãng mạn. Cùng iVIVU
-                            khám phá ngay hôm nay!`,
-    });
-    const [feature, setFeature] = useState([
-        "Khách sạn 3*",
-        "Khách sạn 3*",
-        "Khách sạn 3*",
-        "Khách sạn 3*",
-    ]);
+    // const [details, setDetails] = useState({
+    //     day: "Ngày 1",
+    //     title: "Sb Liên Khương/ Bến Xe - Đà Lạt Ngàn Hoa",
+    //     meals: "(Ăn Trưa, Tối)",
+    //     description: `Khởi hành từ sân bay Liên Khương hoặc bến xe. Tham quan Đà Lạt với những điểm đến nổi bật và trải nghiệm ẩm thực địa phương.Khám phá vẻ đẹp mộng mơ và quyến rũ của Đà Lạt trong
+    //                         2 ngày 1 đêm. Tour này dành cho những ai muốn trải
+    //                         nghiệm sự kết hợp hài hòa giữa thiên nhiên, kiến
+    //                         trúc và văn hóa đặc sắc của thành phố này. Đà Lạt
+    //                         không chỉ nổi tiếng với danh hiệu 'Thành Phố Ngàn
+    //                         Hoa' mà còn là điểm đến lý tưởng cho những ai yêu
+    //                         thích sự yên bình và không gian lãng mạn. Cùng iVIVU
+    //                         khám phá ngay hôm nay!`,
+    // });
+    // const [feature, setFeature] = useState([
+    //     "Khách sạn 3*",
+    //     "Khách sạn 3*",
+    //     "Khách sạn 3*",
+    //     "Khách sạn 3*",
+    // ]);
 
     const [selectedTab, setSelectedTab] = useState(Object.keys(tabData)[0]);
     const [isExpanded, setIsExpanded] = useState(false);
@@ -74,12 +91,12 @@ const TourDetail = () => {
             <section className="tourDetail grid">
                 <div className="tourTitle">
                     <div className="bigTitle">
-                        <h1>Tour Đà Lạt 2N2Đ: Khám Phá Đà Lạt Ngàn Hoa</h1>
+                        <h1>{tour.name}</h1>
                     </div>
                 </div>
                 <div className="images">
                     <div className="imgMain">
-                        <ImageCarousel />
+                        <ImageCarousel imgs={tour.image} />
                     </div>
                 </div>
                 <div className="baseInfo">
@@ -87,11 +104,11 @@ const TourDetail = () => {
                         <div className="destItem">
                             <GrLocation className="icon" />{" "}
                             {t("Departure from")}
-                            <h2>Hồ Chí Minh</h2>
+                            <h2>{tour.destinations}</h2>
                         </div>
                         <div className="destItem">
                             {t("Tour ID")}
-                            <h2>TO1086</h2>
+                            <h2>{tour.tourCode}</h2>
                         </div>
                     </div>
                     <div className="feat">
@@ -100,13 +117,13 @@ const TourDetail = () => {
                         </div>
                         <div className="featInfo">
                             <ul className="featList">
-                                {feature.map((value, index) => (
+                                {tour.tourFeature?.map((feat) => (
                                     <li className="featItem">
                                         <GiCheckMark
                                             className="icon"
-                                            key={index}
+                                            key={feat.id}
                                         />{" "}
-                                        {value}
+                                        {feat.name}
                                     </li>
                                 ))}
                             </ul>
@@ -118,41 +135,36 @@ const TourDetail = () => {
                         <h2 className="featTitle">
                             {t("Fun experience on tour")}
                         </h2>
-                        <p className="tour_desc">
-                            Khám phá vẻ đẹp mộng mơ và quyến rũ của Đà Lạt trong
-                            2 ngày 1 đêm. Tour này dành cho những ai muốn trải
-                            nghiệm sự kết hợp hài hòa giữa thiên nhiên, kiến
-                            trúc và văn hóa đặc sắc của thành phố này. Đà Lạt
-                            không chỉ nổi tiếng với danh hiệu 'Thành Phố Ngàn
-                            Hoa' mà còn là điểm đến lý tưởng cho những ai yêu
-                            thích sự yên bình và không gian lãng mạn. Cùng iVIVU
-                            khám phá ngay hôm nay!
-                        </p>
+                        <p className="tour_desc">{tour.description}</p>
                     </div>
                 </div>
                 <div className="baseInfo">
                     <div className="feat">
                         <h2 className="featTitle">{t("Tour program")}</h2>
-                        <div
-                            className="tour_activities"
-                            onClick={() => setIsExpanded(!isExpanded)}
-                        >
-                            <h3>{details.day}</h3>
-                            <p className="activity_name">{details.title}</p>
-                            <p>{details.meals}</p>
-                            <div
-                                className={`act_expand${
-                                    isExpanded ? " is_open" : ""
-                                }`}
-                            >
-                                {details.description}
-                            </div>
-                            {isExpanded ? (
-                                <FaAngleUp className="icon" />
-                            ) : (
-                                <FaAngleDown className="icon" />
-                            )}
-                        </div>
+                        {tour.destinations?.map((dest, index) => {
+                            return (
+                                <div
+                                    className="tour_activities"
+                                    onClick={() => setIsExpanded(!isExpanded)}
+                                >
+                                    <h3>{index}</h3>
+                                    <p className="activity_name">{dest.name}</p>
+                                    <p>{dest.name}</p>
+                                    <div
+                                        className={`act_expand${
+                                            isExpanded ? " is_open" : ""
+                                        }`}
+                                    >
+                                        {dest.description}
+                                    </div>
+                                    {isExpanded ? (
+                                        <FaAngleUp className="icon" />
+                                    ) : (
+                                        <FaAngleDown className="icon" />
+                                    )}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
                 <div className="baseInfo">

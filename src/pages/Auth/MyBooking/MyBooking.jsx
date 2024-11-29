@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getBooking } from "../../../services/authService";
+import { getMyBooking } from "../../../services/authService";
 import { Table, Button, Typography, Space, message } from "antd";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../../context/authContext";
@@ -17,13 +17,13 @@ const MyBooking = () => {
         const fetchBookings = async () => {
             try {
                 setLoading(true);
-                const response = await getBooking();
-                const filteredBookings = response.data.data.filter(
-                    (booking) => booking.user.id === user.id
-                );
+                const response = await getMyBooking(user.id);
+                // const filteredBookings = response.data.data.filter(
+                //     (booking) => booking.user.id === user.id
+                // );
 
                 setBookings(
-                    filteredBookings.map((booking) => ({
+                    response.map((booking) => ({
                         id: booking.id,
                         tourDate: {
                             tourPackageName: booking.tourDate.tourPackage.name,

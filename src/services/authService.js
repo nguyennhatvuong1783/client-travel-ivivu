@@ -74,3 +74,25 @@ export const getVehicles = () => {
 export const getCompanies = () => {
     return axiosInstance.get(`/company/`);
 };
+
+export const getTourPackages = () => {
+    return axiosInstance.get(`/tour_package/`);
+};
+
+export const getMyBooking = (user_id) => {
+    return axiosInstance.get(`/booking/user/${user_id}`);
+};
+
+export const socialLogin = (type) => {
+    return axiosInstance.get(`/api/auth/social-login?login-type=${type}`);
+};
+
+export const socialLoginCallback = (code, type) => {
+    return axiosInstance.get(
+        `/api/auth/social/callback?code=${code}&login-type=${type}`
+    );
+};
+
+export const getTourPackagesById = (id) => {
+    return axiosInstance.get(`/tour_package/${id}`);
+};
