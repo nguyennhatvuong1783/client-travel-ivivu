@@ -16,6 +16,16 @@ import {
 import Profile from "../pages/Auth/Profile";
 import MyBooking from "../pages/Auth/MyBooking/MyBooking";
 import Statistical from "../components/Dashboard/Statistical/Statistical";
+import Booking from "../components/Dashboard/Booking/Booking";
+import Destinations from "../components/Dashboard/Destinations/Destinations";
+import TourDates from "../components/Dashboard/TourDates/TourDates";
+import Promotions from "../components/Dashboard/Promotions/Promotions";
+import Activities from "../components/Dashboard/Activities/Activities";
+import Accommodations from "../components/Dashboard/Accommodations/Accommodations";
+import Reviews from "../components/Dashboard/Reviews/Reviews";
+import TourGuides from "../components/Dashboard/TourGuides/TourGuides";
+import Vehicles from "../components/Dashboard/Vehicles/Vehicles";
+import Companies from "../components/Dashboard/Companies/Companies";
 
 const AppRoutes = () => {
     return (
@@ -39,24 +49,24 @@ const AppRoutes = () => {
                     <Route path="/dashboard" element={<Dashboard />}>
                         <Route index element={<Statistical />} />
                         <Route path="statistical" element={<Statistical />} />
-                        <Route path="booking" element={<>booking</>} />
+                        <Route path="booking" element={<Booking />} />
                         <Route
                             path="tour_package"
                             element={<>tour_package</>}
                         />
-                        <Route path="destination" element={<>destination</>} />
-                        <Route path="tour_date" element={<>tour_date</>} />
+                        <Route path="destination" element={<Destinations />} />
+                        <Route path="tour_date" element={<TourDates />} />
                         <Route path="users" element={<Users />} />
-                        <Route path="promotion" element={<>promotion</>} />
-                        <Route path="review" element={<>review</>} />
-                        <Route path="activity" element={<>activity</>} />
-                        <Route path="tour_guide" element={<>tour_guide</>} />
+                        <Route path="promotion" element={<Promotions />} />
+                        <Route path="review" element={<Reviews />} />
+                        <Route path="activity" element={<Activities />} />
+                        <Route path="tour_guide" element={<TourGuides />} />
                         <Route
                             path="accommodation"
-                            element={<>accommodation</>}
+                            element={<Accommodations />}
                         />
-                        <Route path="vehicle" element={<>vehicle</>} />
-                        <Route path="company" element={<>company</>} />
+                        <Route path="vehicle" element={<Vehicles />} />
+                        <Route path="company" element={<Companies />} />
                     </Route>
                 </Route>
             </Routes>

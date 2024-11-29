@@ -6,8 +6,10 @@ import { FaLock, FaUser } from "react-icons/fa";
 import { login, myInfo } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
+import Swal from "sweetalert2";
 
 const Login = (props) => {
+    const Swal = require("sweetalert2");
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { setUser } = useAuth();
@@ -35,6 +37,53 @@ const Login = (props) => {
             } else {
                 setMsgError(t("MsgError"));
             }
+            console.log(err);
+        }
+    };
+
+    const handleForgotPassword = async (e) => {
+        e.preventDefault();
+        try {
+            const inputValue = "";
+            const { value: otpCode } = await Swal.fire({
+                title: "Enter OTP Code",
+                input: "text",
+                inputLabel: "OTP code has been sent to your email",
+                inputValue,
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return "You need to write OTP code!";
+                    } else if (value !== "123456") {
+                        return "Incorrect OTP code!";
+                    }
+                },
+            });
+            if (otpCode) {
+                const { value: formValues } = await Swal.fire({
+                    title: "Create a new password",
+                    html: `
+    <input type="password" id="swal-input1" class="swal2-input" placeholder=${t(
+        "password"
+    )}>
+    <input type="password" id="swal-input2" class="swal2-input" placeholder=${t(
+        "confirm password"
+    )}>
+  `,
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        return [
+                            document.getElementById("swal-input1").value,
+                            document.getElementById("swal-input2").value,
+                        ];
+                    },
+                });
+                if (formValues) {
+                    Swal.fire(JSON.stringify(formValues));
+                }
+            }
+        } catch (err) {
+            setError(true);
             console.log(err);
         }
     };
@@ -88,7 +137,11 @@ const Login = (props) => {
             <button className="btn" type="submit">
                 {t("LOG IN")}
             </button>
-            <a href="#forgotpassword" className="forgot-password">
+            <a
+                href="#forgotpassword"
+                className="forgot-password"
+                onClick={handleForgotPassword}
+            >
                 {t("forgot your password?")}
             </a>
             <p className="account-text">

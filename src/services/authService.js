@@ -38,3 +38,39 @@ export const updatePassword = (email, values) => {
 export const getBooking = () => {
     return axiosInstance.get(`/booking/`);
 };
+
+export const getDestinations = () => {
+    return axiosInstance.get(`/destination/`);
+};
+
+export const getTourDates = () => {
+    return axiosInstance.get(`/tour-date/`);
+};
+
+export const getPromotions = () => {
+    return axiosInstance.get(`/promotion/`);
+};
+
+export const getActivities = () => {
+    return axiosInstance.get(`/activity/`);
+};
+
+export const getAccommodations = () => {
+    return axiosInstance.get(`/accommodation/`);
+};
+
+export const getReviews = () => {
+    return axiosInstance.get(`/review/package/0`);
+};
+
+export const getTourGuides = () => {
+    return axiosInstance.get(`/tour-guide/`);
+};
+
+export const getVehicles = () => {
+    return axiosInstance.get(`/vehicle/`);
+};
+
+export const getCompanies = () => {
+    return axiosInstance.get(`/company/`);
+};

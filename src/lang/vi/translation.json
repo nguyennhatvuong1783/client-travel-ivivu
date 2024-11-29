@@ -102,5 +102,12 @@
     "Number of people": "Số lượng người: ",
     "Select Schedule and View Prices": "Chọn Lịch Trình và Xem Giá:",
     "Tour Schedule and Price": "Lịch Trình và Giá Tour",
-    "Booking successfully": "Đặt chỗ thành công"
+    "Booking successfully": "Đặt chỗ thành công",
+    "User Name": "Tên khách hàng",
+    "Destination ID": "Mã điểm đến",
+    "Destination Name": "Tên điểm đến",
+    "Best Time to Visit": "Thời điểm tốt nhất để ghé thăm",
+    "Climate": "Khí hậu",
+    "Country": "Quốc gia",
+    "Description": "Mô tả"
 }
