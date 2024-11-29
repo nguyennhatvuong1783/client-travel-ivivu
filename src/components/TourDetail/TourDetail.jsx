@@ -104,7 +104,7 @@ const TourDetail = () => {
                         <div className="destItem">
                             <GrLocation className="icon" />{" "}
                             {t("Departure from")}
-                            <h2>{tour.destinations}</h2>
+                            <h2>{tour.depart}</h2>
                         </div>
                         <div className="destItem">
                             {t("Tour ID")}
@@ -195,7 +195,7 @@ const TourDetail = () => {
                     </div>
                 </div>
             </section>
-            <Booking />
+            {tour.id ? <Booking id={tour.id} /> : ""}
         </>
     );
 };

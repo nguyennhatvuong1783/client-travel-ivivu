@@ -5,8 +5,12 @@ import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import {
+    createBooking,
+    getTourDatesByPackageId,
+} from "../../services/authService";
 
-const Booking = () => {
+const Booking = ({ id }) => {
     const MySwal = withReactContent(Swal);
 
     const navigate = useNavigate();
@@ -14,26 +18,22 @@ const Booking = () => {
     const { user } = useAuth();
     const [hover, setHover] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
+    const [selected, setSetSelected] = useState(null);
     const [dates, setDates] = useState([]);
     const [quantity, setQuantity] = useState(1);
-    const pricePerPerson = 3770000;
+    const [pricePerPerson, setPricePerPerson] = useState(0);
 
     useEffect(() => {
-        const fetchDates = async () => {
-            // Dữ liệu giả lập
-            const mockDates = [
-                { date: "2024-12-05", price: 30000, isBestPrice: true },
-                { date: "2024-12-12", price: 3770000, isBestPrice: true },
-                { date: "2024-12-19", price: 3770000, isBestPrice: false },
-                { date: "2024-12-26", price: 3770000, isBestPrice: false },
-                { date: "2024-12-06", price: 3770000, isBestPrice: true },
-                { date: "2024-12-11", price: 3770000, isBestPrice: true },
-                { date: "2024-12-18", price: 3770000, isBestPrice: false },
-                { date: "2024-12-25", price: 3770000, isBestPrice: false },
-            ];
-            setDates(mockDates);
+        const fetchData = async () => {
+            try {
+                const response = await getTourDatesByPackageId(id);
+                setDates(response.data.data);
+                setPricePerPerson(response.data.data[0].tourPackage.price);
+            } catch (error) {
+                console.log(error);
+            }
         };
-        fetchDates();
+        fetchData();
     }, []);
 
     const handleQuantityChange = (operation) => {
@@ -42,23 +42,52 @@ const Booking = () => {
         );
     };
 
-    const handleBooking = () => {
-        const Toast = MySwal.mixin({
-            toast: true,
-            position: "top",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = MySwal.stopTimer;
-                toast.onmouseleave = MySwal.resumeTimer;
-                toast.onclick = MySwal.close;
-            },
-        });
-        Toast.fire({
-            icon: "success",
-            title: t("Booking successfully"),
-        });
+    const handleBooking = async () => {
+        if (checkSpot()) {
+            const Toast = MySwal.mixin({
+                toast: true,
+                position: "top",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = MySwal.stopTimer;
+                    toast.onmouseleave = MySwal.resumeTimer;
+                    toast.onclick = MySwal.close;
+                },
+            });
+
+            const value = {
+                userId: user.id,
+                tourDateId: selected.id,
+                participants: quantity,
+                totalPrice: totalPrice,
+            };
+
+            try {
+                const response = await createBooking(value);
+                Toast.fire({
+                    icon: "success",
+                    title: t("Booking successfully"),
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            Swal.fire({
+                position: "top",
+                title: "Oops!",
+                text: `Only ${selected.spots} spots left!`,
+                icon: "warning",
+            });
+        }
+    };
+
+    const checkSpot = () => {
+        if (selected.spots < quantity) {
+            return false;
+        }
+        return true;
     };
 
     const totalPrice = quantity * pricePerPerson;
@@ -93,18 +122,27 @@ const Booking = () => {
             >
                 {dates.map((date) => (
                     <button
-                        key={date.date}
-                        onClick={() => setSelectedDate(date.date)}
+                        key={date.startDate}
+                        onClick={() => {
+                            setSelectedDate(date.startDate);
+                            setSetSelected(date);
+                        }}
                         style={{
                             padding: "10px",
                             border: "1px solid #ccc",
                             borderRadius: "5px",
                             background:
-                                selectedDate === date.date ? "#4caf50" : "#fff",
-                            color: selectedDate === date.date ? "#fff" : "#000",
+                                selectedDate === date.startDate
+                                    ? "#4caf50"
+                                    : "#fff",
+                            color:
+                                selectedDate === date.startDate
+                                    ? "#fff"
+                                    : "#000",
+                            cursor: "pointer",
                         }}
                     >
-                        {new Date(date.date).toLocaleDateString("vi-VN", {
+                        {new Date(date.startDate).toLocaleDateString("vi-VN", {
                             day: "2-digit",
                             month: "2-digit",
                         })}

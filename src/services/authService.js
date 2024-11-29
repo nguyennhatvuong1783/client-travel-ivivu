@@ -76,7 +76,7 @@ export const getCompanies = () => {
 };
 
 export const getTourPackages = () => {
-    return axiosInstance.get(`/tour_package/`);
+    return axiosInstance.get(`/tour_package/?size=100`);
 };
 
 export const getMyBooking = (user_id) => {
@@ -95,4 +95,12 @@ export const socialLoginCallback = (code, type) => {
 
 export const getTourPackagesById = (id) => {
     return axiosInstance.get(`/tour_package/${id}`);
+};
+
+export const getTourDatesByPackageId = (id) => {
+    return axiosInstance.get(`/tour-date/package/${id}`);
+};
+
+export const createBooking = (value) => {
+    return axiosInstance.post(`/booking/create`, value);
 };
