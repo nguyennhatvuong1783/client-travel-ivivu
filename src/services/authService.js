@@ -104,3 +104,11 @@ export const getTourDatesByPackageId = (id) => {
 export const createBooking = (value) => {
     return axiosInstance.post(`/booking/create`, value);
 };
+
+export const sendOTP = (email) => {
+    return axiosInstance.post(`/forgotPassword/verifyMail/${email}`);
+};
+
+export const checkOTP = (otp, email) => {
+    return axiosInstance.post(`/forgotPassword/verifyOtp/${otp}/${email}`);
+};

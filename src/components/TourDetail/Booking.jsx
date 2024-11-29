@@ -43,20 +43,16 @@ const Booking = ({ id }) => {
     };
 
     const handleBooking = async () => {
-        if (checkSpot()) {
-            const Toast = MySwal.mixin({
-                toast: true,
+        if (!selected) {
+            Swal.fire({
                 position: "top",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = MySwal.stopTimer;
-                    toast.onmouseleave = MySwal.resumeTimer;
-                    toast.onclick = MySwal.close;
-                },
+                title: "Oops!",
+                text: `Please select schedule!`,
+                icon: "warning",
             });
-
+            return;
+        }
+        if (checkSpot()) {
             const value = {
                 userId: user.id,
                 tourDateId: selected.id,
@@ -65,13 +61,31 @@ const Booking = ({ id }) => {
             };
 
             try {
-                const response = await createBooking(value);
+                await createBooking(value);
+                const Toast = MySwal.mixin({
+                    toast: true,
+                    position: "top",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = MySwal.stopTimer;
+                        toast.onmouseleave = MySwal.resumeTimer;
+                        toast.onclick = MySwal.close;
+                    },
+                });
                 Toast.fire({
                     icon: "success",
                     title: t("Booking successfully"),
                 });
             } catch (error) {
                 console.log(error);
+                Swal.fire({
+                    position: "top",
+                    title: "Oops!",
+                    text: `Only ${selected.spots} spots left!`,
+                    icon: "warning",
+                });
             }
         } else {
             Swal.fire({

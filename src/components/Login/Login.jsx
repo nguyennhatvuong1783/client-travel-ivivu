@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./login.scss";
-import { FiFacebook } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import { FaCircleXmark } from "react-icons/fa6";
-import { FaLock, FaUser } from "react-icons/fa";
+import { FaLock, FaUser, FaFacebook } from "react-icons/fa";
 import {
     login,
     myInfo,
+    sendOTP,
     socialLogin,
     socialLoginCallback,
+    checkOTP,
+    updatePassword,
 } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
@@ -19,12 +21,13 @@ const Login = (props) => {
     const Swal = require("sweetalert2");
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const { setUser } = useAuth();
+    const { user, setUser } = useAuth();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const [msgError, setMsgError] = useState("");
+    const [isCorrectOTP, setIsCorrectOTP] = useState(false);
 
     useEffect(() => {
         const queryParams = new URLSearchParams(window.location.search);
@@ -92,25 +95,40 @@ const Login = (props) => {
     const handleForgotPassword = async (e) => {
         e.preventDefault();
         try {
-            const inputValue = "";
-            const { value: otpCode } = await Swal.fire({
-                title: "Enter OTP Code",
-                input: "text",
-                inputLabel: "OTP code has been sent to your email",
-                inputValue,
-                showCancelButton: true,
-                inputValidator: (value) => {
-                    if (!value) {
-                        return "You need to write OTP code!";
-                    } else if (value !== "123456") {
-                        return "Incorrect OTP code!";
-                    }
-                },
+            const { value: email } = await Swal.fire({
+                title: "Input email address",
+                input: "email",
+                inputLabel: "Your email address",
+                inputPlaceholder: "Enter your email address",
             });
-            if (otpCode) {
-                const { value: formValues } = await Swal.fire({
-                    title: "Create a new password",
-                    html: `
+            if (email) {
+                try {
+                    await sendOTP(email);
+                    const inputValue = "";
+                    const { value: otpCode } = await Swal.fire({
+                        title: "Enter OTP Code",
+                        input: "text",
+                        inputLabel: `OTP code has been sent to ${email}`,
+                        inputValue,
+                        showCancelButton: true,
+                        inputValidator: async (value) => {
+                            if (!value) {
+                                return "You need to write OTP code!";
+                            } else {
+                                try {
+                                    await checkOTP(value, email);
+                                    setIsCorrectOTP(true);
+                                } catch (err) {
+                                    console.error(err);
+                                    return "Incorrect OTP code!";
+                                }
+                            }
+                        },
+                    });
+                    if (otpCode && isCorrectOTP) {
+                        const { value: formValues } = await Swal.fire({
+                            title: "Create a new password",
+                            html: `
     <input type="password" id="swal-input1" class="swal2-input" placeholder=${t(
         "password"
     )}>
@@ -118,16 +136,70 @@ const Login = (props) => {
         "confirm password"
     )}>
   `,
-                    focusConfirm: false,
-                    preConfirm: () => {
-                        return [
-                            document.getElementById("swal-input1").value,
-                            document.getElementById("swal-input2").value,
-                        ];
-                    },
-                });
-                if (formValues) {
-                    Swal.fire(JSON.stringify(formValues));
+                            focusConfirm: false,
+                            // preConfirm: () => {
+                            //     return [
+                            //         document.getElementById("swal-input1")
+                            //             .value,
+                            //         document.getElementById("swal-input2")
+                            //             .value,
+                            //     ];
+                            // },
+                            preConfirm: () => {
+                                const password =
+                                    document.getElementById(
+                                        "swal-input1"
+                                    ).value;
+                                const confirmPassword =
+                                    document.getElementById(
+                                        "swal-input2"
+                                    ).value;
+
+                                if (!password) {
+                                    Swal.showValidationMessage(
+                                        "You need to write password!"
+                                    );
+                                    return;
+                                }
+
+                                if (!confirmPassword) {
+                                    Swal.showValidationMessage(
+                                        "You need to write confirm password!"
+                                    );
+                                    return;
+                                }
+
+                                if (password !== confirmPassword) {
+                                    Swal.showValidationMessage(
+                                        "Confirm password incorrect!"
+                                    );
+                                    return;
+                                }
+
+                                // Trả về giá trị hợp lệ
+                                return [password, confirmPassword];
+                            },
+                        });
+                        if (formValues && formValues[0] === formValues[1]) {
+                            try {
+                                const value = {
+                                    password: formValues[0],
+                                    repeatPassword: formValues[1],
+                                };
+                                await updatePassword(email, value);
+                            } catch (err) {
+                                console.error(err);
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.error(err);
+                    Swal.fire({
+                        position: "top",
+                        title: "Oops!",
+                        text: `Account is not exist!`,
+                        icon: "error",
+                    });
                 }
             }
         } catch (err) {
@@ -206,7 +278,7 @@ const Login = (props) => {
                 </a>
             </p>
             <div className="socialLogin">
-                <FiFacebook
+                <FaFacebook
                     className="icon"
                     onClick={(e) => handleSocialLogin(e, "facebook")}
                 />
