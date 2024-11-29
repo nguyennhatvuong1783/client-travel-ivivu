@@ -264,7 +264,15 @@ const TourPackages = () => {
                         <Input type="number" />
                     </Form.Item>
                     <Form.Item label={t("Price Detail")} name="price_detail">
-                        <Input />
+                        <Upload
+                            accept=".txt"
+                            maxCount={1}
+                            // onChange={handleChange}
+                        >
+                            <Button icon={<UploadOutlined />}>
+                                Click to Upload
+                            </Button>
+                        </Upload>
                     </Form.Item>
                     <Form.Item label={t("Images")} name="images">
                         <Upload

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getMyBooking } from "../../../services/authService";
+import { getMyBooking, vnpay } from "../../../services/authService";
 import { Table, Button, Typography, Space, message } from "antd";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../../context/authContext";
@@ -34,8 +34,7 @@ const MyBooking = () => {
                         discount: booking.promotions.length
                             ? `${booking.promotions[0].discount}% Off`
                             : null,
-                        total_price:
-                            booking.totalPrice.toLocaleString() + " VND",
+                        total_price: booking.totalPrice,
                     }))
                 );
             } catch (error) {
@@ -61,6 +60,37 @@ const MyBooking = () => {
                 console.error("Failed to cancel booking:", error);
                 message.error("Failed to cancel booking. Please try again.");
             }
+        }
+    };
+
+    const handleVNPay = (booking) => {
+        const vnPayRequest = {
+            price: booking.total_price,
+            orderInfo: "Payment VNPay",
+            bookingId: booking.id,
+        };
+        const queryVnPayRequest = new URLSearchParams(vnPayRequest).toString();
+        const paymentRequest = {
+            bookingId: booking.id,
+            amount: booking.total_price,
+            method: "VNPAY",
+            transaction: "string",
+        };
+        const queryPaymentRequest = new URLSearchParams(
+            paymentRequest
+        ).toString();
+        vnPayApi(queryVnPayRequest, queryPaymentRequest);
+    };
+
+    const vnPayApi = async (queryVnPayRequest, queryPaymentRequest) => {
+        try {
+            const response = await vnpay(
+                queryVnPayRequest,
+                queryPaymentRequest
+            );
+            window.location = response.data.paymentUrl;
+        } catch (err) {
+            console.error(err);
         }
     };
 
@@ -119,12 +149,7 @@ const MyBooking = () => {
             key: "activity",
             render: (_, record) => (
                 <Space>
-                    <Button
-                        type="primary"
-                        onClick={() =>
-                            message.info("Payment feature coming soon!")
-                        }
-                    >
+                    <Button type="primary" onClick={() => handleVNPay(record)}>
                         {t("VNPay")}
                     </Button>
                     <Button

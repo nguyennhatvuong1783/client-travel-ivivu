@@ -112,3 +112,9 @@ export const sendOTP = (email) => {
 export const checkOTP = (otp, email) => {
     return axiosInstance.post(`/forgotPassword/verifyOtp/${otp}/${email}`);
 };
+
+export const vnpay = (vnPayRequest, paymentRequest) => {
+    return axiosInstance.get(
+        `/api/auth/payment/vnpay?${vnPayRequest}&${paymentRequest}`
+    );
+};
