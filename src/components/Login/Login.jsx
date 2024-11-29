@@ -137,14 +137,6 @@ const Login = (props) => {
     )}>
   `,
                             focusConfirm: false,
-                            // preConfirm: () => {
-                            //     return [
-                            //         document.getElementById("swal-input1")
-                            //             .value,
-                            //         document.getElementById("swal-input2")
-                            //             .value,
-                            //     ];
-                            // },
                             preConfirm: () => {
                                 const password =
                                     document.getElementById(

@@ -113,8 +113,21 @@ export const checkOTP = (otp, email) => {
     return axiosInstance.post(`/forgotPassword/verifyOtp/${otp}/${email}`);
 };
 
-export const vnpay = (vnPayRequest, paymentRequest) => {
-    return axiosInstance.get(
-        `/api/auth/payment/vnpay?${vnPayRequest}&${paymentRequest}`
+export const vnpay = (paymentRequest) => {
+    return axiosInstance.post(`/api/auth/payment/vnpay`, paymentRequest);
+};
+
+export const zalopay = (value) => {
+    return axiosInstance.post(`/api/auth/payment/zalopay`, value);
+};
+
+export const updateStatusBooking = (status, id) => {
+    return axiosInstance.put(`/booking/${status}/${id}`);
+};
+
+export const vnpayConfirm = (bookingId, vnp_TransactionNo) => {
+    return axiosInstance.put(
+        `/api/auth/payment/confirm/${bookingId}`,
+        vnp_TransactionNo
     );
 };
