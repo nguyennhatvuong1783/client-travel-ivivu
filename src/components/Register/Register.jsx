@@ -11,10 +11,13 @@ import {
 import { register } from "../../services/authService";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useLoading } from "../../context/loadingContext";
 
 const Register = (props) => {
     const { t } = useTranslation();
     const MySwal = withReactContent(Swal);
+
+    const { setPageLoading } = useLoading();
 
     const [full_name, setFullname] = useState("");
     const [username, setUsername] = useState("");
@@ -34,6 +37,10 @@ const Register = (props) => {
     const inputPassword = useRef();
     const inputConfirmPassword = useRef();
     const inputPhone = useRef();
+
+    const msgErrorPassword = useRef();
+    const msgErrorConfirmPassword = useRef();
+    const msgErrorPhone = useRef();
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -62,6 +69,7 @@ const Register = (props) => {
             },
         });
         try {
+            setPageLoading(true);
             const response = await register({
                 username,
                 password,
@@ -89,6 +97,8 @@ const Register = (props) => {
                     title: t("MsgError"),
                 });
             }
+        } finally {
+            setPageLoading(false);
         }
     };
 
@@ -99,6 +109,9 @@ const Register = (props) => {
         if (isPasswordError !== passwordError) {
             setPasswordError(isPasswordError);
             setMsgPasswordError(isPasswordError ? t("PasswordError") : "");
+            msgErrorPassword.current.style.display = isPasswordError
+                ? "block"
+                : "none";
         }
     }, [password, passwordError]);
 
@@ -110,6 +123,8 @@ const Register = (props) => {
             setMsgConfirmPasswordError(
                 isConfirmPasswordError ? t("ConfirmPasswordError") : ""
             );
+            msgErrorConfirmPassword.current.style.display =
+                isConfirmPasswordError ? "block" : "none";
         }
     }, [password, confirmPassword, confirmPasswordError]);
 
@@ -120,6 +135,9 @@ const Register = (props) => {
         if (isPhoneError !== phoneError) {
             setPhoneError(isPhoneError);
             setMsgPhoneError(isPhoneError ? t("PhoneError") : "");
+            msgErrorPhone.current.style.display = isPhoneError
+                ? "block"
+                : "none";
         }
     }, [phone_number, phoneError]);
 
@@ -182,7 +200,7 @@ const Register = (props) => {
                     onChange={(e) => setPhone(e.target.value)}
                 />
             </div>
-            <p className="msg-sign-up-phone" id="msg-error">
+            <p ref={msgErrorPhone} className="msg-sign-up-phone" id="msg-error">
                 {msgPhoneError}
             </p>
             <div
@@ -203,7 +221,11 @@ const Register = (props) => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
-            <p className="msg-sign-up-password" id="msg-error">
+            <p
+                ref={msgErrorPassword}
+                className="msg-sign-up-password"
+                id="msg-error"
+            >
                 {msgPasswordError}
             </p>
             <div
@@ -224,7 +246,11 @@ const Register = (props) => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
             </div>
-            <p className="msg-sign-up-confirm-password" id="msg-error">
+            <p
+                ref={msgErrorConfirmPassword}
+                className="msg-sign-up-confirm-password"
+                id="msg-error"
+            >
                 {msgConfirmPasswordError}
             </p>
             <button className="btn" type="submit" id="btn-register">

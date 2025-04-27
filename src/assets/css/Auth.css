@@ -1,7 +1,11 @@
 :root {
     --PrimaryColor: hsl(199, 100%, 33%);
     --SecondaryColor: hsl(187, 85%, 43%);
-    --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+    --gradientColor: linear-gradient(
+        to right,
+        hsl(187, 85%, 43%),
+        hsl(199, 100%, 33%)
+    );
     --whiteColor: hsl(0, 0%, 100%);
     --blackColor: hsl(201, 33%, 16%);
     --textColor: hsl(240, 4%, 36%);
@@ -36,7 +40,11 @@
     left: -50%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to left, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+    background: linear-gradient(
+        to left,
+        hsl(187, 85%, 43%),
+        hsl(199, 100%, 33%)
+    );
     z-index: 6;
     transform: translateX(100%);
     transition: 0.5s ease-in-out;
@@ -181,7 +189,7 @@ form {
 
 /* Responsive */
 
-@media (max-width:779px) {
+@media (max-width: 779px) {
     .content .container {
         width: 100vw !important;
         height: 100vh !important;
@@ -190,7 +198,7 @@ form {
     }
 }
 
-@media (max-width:635px) {
+@media (max-width: 635px) {
     .content .container::before {
         display: none;
     }
@@ -228,7 +236,7 @@ form {
     }
 }
 
-@media (max-width:320px) {
+@media (max-width: 320px) {
     form {
         width: 90%;
     }

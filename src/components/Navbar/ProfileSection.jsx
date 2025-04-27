@@ -17,10 +17,12 @@ import { logout } from "../../services/authService";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../context/authContext";
+import { useLoading } from "../../context/loadingContext";
 
 const ProfileSection = () => {
     const { t } = useTranslation();
     const { setUser } = useAuth();
+    const { setPageLoading } = useLoading();
     const navigate = useNavigate();
     const theme = useTheme();
 
@@ -49,11 +51,14 @@ const ProfileSection = () => {
     const handleLogout = () => {
         const callApiLogout = async () => {
             try {
+                setPageLoading(true);
                 await logout();
                 setUser(null);
                 navigate("/");
             } catch (err) {
                 console.error(err);
+            } finally {
+                setPageLoading(false);
             }
         };
         callApiLogout();

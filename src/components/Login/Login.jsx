@@ -16,12 +16,14 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import Swal from "sweetalert2";
+import { useLoading } from "../../context/loadingContext";
 
 const Login = (props) => {
     const Swal = require("sweetalert2");
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { user, setUser } = useAuth();
+    const { setPageLoading } = useLoading();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -45,6 +47,7 @@ const Login = (props) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
+            setPageLoading(true);
             const response = await login({ username, password });
             console.log(response);
             const userInfo = await myInfo();
@@ -61,11 +64,14 @@ const Login = (props) => {
                 setMsgError(t("MsgError"));
             }
             console.log(err);
+        } finally {
+            setPageLoading(false);
         }
     };
 
     const LoginCallback = async (code, type) => {
         try {
+            setPageLoading(true);
             const response = await socialLoginCallback(code, type);
             console.log(response);
             const userInfo = await myInfo();
@@ -74,6 +80,8 @@ const Login = (props) => {
         } catch (err) {
             setError(true);
             console.log(err);
+        } finally {
+            setPageLoading(false);
         }
     };
 
@@ -81,122 +89,150 @@ const Login = (props) => {
         e.preventDefault();
         console.log(type);
         try {
+            setPageLoading(true);
             const response = await socialLogin(type);
             console.log(response);
-            // const userInfo = await myInfo();
-            // setUser(userInfo.data.data);
             window.location.href = response.data;
         } catch (err) {
             setError(true);
             console.log(err);
+        } finally {
+            setPageLoading(false);
         }
     };
 
     const handleForgotPassword = async (e) => {
         e.preventDefault();
+
         try {
-            const { value: email } = await Swal.fire({
-                title: "Input email address",
-                input: "email",
-                inputLabel: "Your email address",
-                inputPlaceholder: "Enter your email address",
+            const email = await getEmailInput();
+            if (!email) return;
+
+            setPageLoading(true);
+            await sendOTP(email); // Gửi OTP
+            setPageLoading(false);
+
+            const isOTPVerified = await verifyOTP(email);
+            if (!isOTPVerified) return;
+
+            const newPassword = await getNewPassword();
+            if (!newPassword) return;
+
+            await updateUserPassword(email, newPassword);
+            Swal.fire({
+                position: "top",
+                title: "Success!",
+                text: "Password updated successfully.",
+                icon: "success",
             });
-            if (email) {
-                try {
-                    await sendOTP(email);
-                    const inputValue = "";
-                    const { value: otpCode } = await Swal.fire({
-                        title: "Enter OTP Code",
-                        input: "text",
-                        inputLabel: `OTP code has been sent to ${email}`,
-                        inputValue,
-                        showCancelButton: true,
-                        inputValidator: async (value) => {
-                            if (!value) {
-                                return "You need to write OTP code!";
-                            } else {
-                                try {
-                                    await checkOTP(value, email);
-                                    setIsCorrectOTP(true);
-                                } catch (err) {
-                                    console.error(err);
-                                    return "Incorrect OTP code!";
-                                }
-                            }
-                        },
-                    });
-                    if (otpCode && isCorrectOTP) {
-                        const { value: formValues } = await Swal.fire({
-                            title: "Create a new password",
-                            html: `
-    <input type="password" id="swal-input1" class="swal2-input" placeholder=${t(
-        "password"
-    )}>
-    <input type="password" id="swal-input2" class="swal2-input" placeholder=${t(
-        "confirm password"
-    )}>
-  `,
-                            focusConfirm: false,
-                            preConfirm: () => {
-                                const password =
-                                    document.getElementById(
-                                        "swal-input1"
-                                    ).value;
-                                const confirmPassword =
-                                    document.getElementById(
-                                        "swal-input2"
-                                    ).value;
-
-                                if (!password) {
-                                    Swal.showValidationMessage(
-                                        "You need to write password!"
-                                    );
-                                    return;
-                                }
-
-                                if (!confirmPassword) {
-                                    Swal.showValidationMessage(
-                                        "You need to write confirm password!"
-                                    );
-                                    return;
-                                }
-
-                                if (password !== confirmPassword) {
-                                    Swal.showValidationMessage(
-                                        "Confirm password incorrect!"
-                                    );
-                                    return;
-                                }
-
-                                // Trả về giá trị hợp lệ
-                                return [password, confirmPassword];
-                            },
-                        });
-                        if (formValues && formValues[0] === formValues[1]) {
-                            try {
-                                const value = {
-                                    password: formValues[0],
-                                    repeatPassword: formValues[1],
-                                };
-                                await updatePassword(email, value);
-                            } catch (err) {
-                                console.error(err);
-                            }
-                        }
-                    }
-                } catch (err) {
-                    console.error(err);
-                    Swal.fire({
-                        position: "top",
-                        title: "Oops!",
-                        text: `Account is not exist!`,
-                        icon: "error",
-                    });
-                }
-            }
         } catch (err) {
-            setError(true);
-            console.log(err);
+            console.error(err);
+            Swal.fire({
+                position: "top",
+                title: "Error",
+                text: "An error occurred. Please try again later.",
+                icon: "error",
+            });
+        } finally {
+            setPageLoading(false);
+        }
+    };
+
+    // Hàm nhập email
+    const getEmailInput = async () => {
+        const { value: email } = await Swal.fire({
+            title: "Input email address",
+            input: "email",
+            inputLabel: "Your email address",
+            inputPlaceholder: "Enter your email address",
+            showCancelButton: true,
+        });
+        return email || null;
+    };
+
+    // Hàm kiểm tra OTP
+    const verifyOTP = async (email) => {
+        try {
+            const { value: otpCode } = await Swal.fire({
+                title: "Enter OTP Code",
+                input: "text",
+                inputLabel: `OTP code has been sent to ${email}`,
+                inputPlaceholder: "Enter your OTP code",
+                showCancelButton: true,
+                inputValidator: async (value) => {
+                    if (!value) return "You need to write OTP code!";
+                    try {
+                        setPageLoading(true);
+                        await checkOTP(value, email); // Gọi API kiểm tra OTP
+                        return null;
+                    } catch {
+                        return "Incorrect OTP code!";
+                    } finally {
+                        setPageLoading(false);
+                    }
+                },
+            });
+            return !!otpCode;
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+    };
+
+    // Hàm nhập mật khẩu mới
+    const getNewPassword = async () => {
+        const { value: formValues } = await Swal.fire({
+            title: "Create a new password",
+            html: `
+            <input type="password" id="swal-input1" class="swal2-input" placeholder="Enter new password">
+            <input type="password" id="swal-input2" class="swal2-input" placeholder="Confirm new password">
+        `,
+            focusConfirm: false,
+            preConfirm: () => {
+                const password = document.getElementById("swal-input1").value;
+                const confirmPassword =
+                    document.getElementById("swal-input2").value;
+
+                // Kiểm tra mật khẩu
+                if (!password)
+                    return Swal.showValidationMessage(
+                        "You need to write password!"
+                    );
+                if (password.length < 8 || password.length > 20)
+                    return Swal.showValidationMessage(
+                        "Password must be between 8 and 20 characters!"
+                    );
+
+                // Kiểm tra xác nhận mật khẩu
+                if (!confirmPassword)
+                    return Swal.showValidationMessage(
+                        "You need to write confirm password!"
+                    );
+                if (password !== confirmPassword)
+                    return Swal.showValidationMessage(
+                        "Passwords do not match!"
+                    );
+
+                return { password, confirmPassword };
+            },
+        });
+
+        return formValues || null;
+    };
+
+    // Hàm cập nhật mật khẩu
+    const updateUserPassword = async (email, { password, confirmPassword }) => {
+        try {
+            setPageLoading(true);
+            await updatePassword(email, {
+                password,
+                repeatPassword: confirmPassword,
+            });
+        } catch (err) {
+            console.error(err);
+            throw new Error("Failed to update password");
+        } finally {
+            setPageLoading(false);
         }
     };
 

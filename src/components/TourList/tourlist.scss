@@ -1,7 +1,11 @@
 :root {
     --PrimaryColor: hsl(199, 100%, 33%);
     --SecondaryColor: hsl(187, 85%, 43%);
-    --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+    --gradientColor: linear-gradient(
+        to right,
+        hsl(187, 85%, 43%),
+        hsl(199, 100%, 33%)
+    );
     --whiteColor: hsl(0, 0%, 100%);
     --blackColor: hsl(201, 33%, 16%);
     --textColor: hsl(240, 4%, 36%);
@@ -57,7 +61,7 @@
             &:hover {
                 background: var(--cardHover);
                 box-shadow: 1 4px 4px rgba(85, 85, 114, 0.549);
-                transition: .3s ease;
+                transition: 0.3s ease;
             }
 
             .name {
@@ -75,7 +79,7 @@
                 top: 3.5rem;
                 right: 2rem;
                 font-size: 2rem !important;
-                gap: .5rem;
+                gap: 0.5rem;
 
                 .icon {
                     color: var(--textColor);
@@ -106,7 +110,6 @@
                 font-size: 2rem !important;
             }
 
-
             .btn {
                 position: absolute;
                 bottom: 2rem;
@@ -126,61 +129,6 @@
         width: 90%;
         float: none;
         margin-left: 5%;
-    }
-}
-
-@media screen and (max-width: 1420px) {
-    .tourList {
-        .singleDestination {
-            height: 200px;
-
-            .imageDiv {
-                height: 200px;
-                width: 300px;
-            }
-
-            .cardInfo {
-                padding: 2rem 1rem 1rem;
-
-                .destTitle {
-                    font-size: 1.25rem !important;
-                }
-
-                .continent {
-                    top: 2.5rem;
-                    right: 1rem;
-                    font-size: 1rem !important;
-                }
-
-                .grade {
-                    bottom: 2rem;
-                    left: 1rem;
-                    font-size: .8rem;
-
-                    small {
-                        padding: 1px 10px;
-                    }
-                }
-
-                .price {
-                    position: absolute;
-                    bottom: 3.5rem;
-                    right: 1rem;
-                    font-size: 1.5rem !important;
-                }
-
-
-                .btn {
-                    bottom: 1rem;
-                    right: 1.5rem;
-
-                    .icon {
-                        margin-left: 5px;
-                        font-size: 1rem;
-                    }
-                }
-            }
-        }
     }
 }
 

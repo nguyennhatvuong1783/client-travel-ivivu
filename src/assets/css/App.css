@@ -96,9 +96,3 @@ body {
         padding: 6rem 0 4rem;
     }
 }
-
-@media screen and (min-width: 2560px) {
-    body {
-        zoom: 1.7;
-    }
-}

@@ -1,7 +1,11 @@
 :root {
     --PrimaryColor: hsl(199, 100%, 33%);
     --SecondaryColor: hsl(187, 85%, 43%);
-    --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+    --gradientColor: linear-gradient(
+        to right,
+        hsl(187, 85%, 43%),
+        hsl(199, 100%, 33%)
+    );
     --whiteColor: hsl(0, 0%, 100%);
     --blackColor: hsl(201, 33%, 16%);
     --textColor: hsl(240, 4%, 36%);
@@ -43,7 +47,7 @@
     .homeContent {
         width: 100%;
         height: max-content;
-        padding: 8rem 1.5rem 3rem;
+        padding: 5rem 1.5rem 3rem;
         display: flex;
         row-gap: 3rem;
         flex-direction: column;
@@ -66,7 +70,6 @@
                 font-size: 1.8rem;
             }
         }
-
 
         .homeFooterIcons {
             width: 100%;
@@ -103,7 +106,7 @@
 
                     &::after {
                         position: absolute;
-                        content: '';
+                        content: "";
                         background: var(--SecondaryColor);
                         height: 5px;
                         width: 100%;
@@ -125,36 +128,11 @@
 
 @media screen and (min-width: 1240px) {
     .home {
-        height: 95vh;
+        height: 100vh;
 
         .homeContent {
             padding-left: 0;
             padding-right: 0;
-        }
-    }
-}
-
-@media screen and (min-width: 1404px) {
-    .home {
-        height: 100vh;
-
-        .homeContent {
-            .textDiv {
-
-                .smallText {
-                    font-size: 20px;
-                }
-
-                .homeTitle {
-                    font-size: 3rem;
-                }
-            }
-
-            .homeFooterIcons {
-                .icon {
-                    font-size: 25px;
-                }
-            }
         }
     }
 }

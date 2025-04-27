@@ -9,6 +9,7 @@ import {
     createBooking,
     getTourDatesByPackageId,
 } from "../../services/authService";
+import { useLoading } from "../../context/loadingContext";
 
 const Booking = ({ id }) => {
     const MySwal = withReactContent(Swal);
@@ -16,6 +17,7 @@ const Booking = ({ id }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { user } = useAuth();
+    const { setPageLoading } = useLoading();
     const [hover, setHover] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selected, setSetSelected] = useState(null);
@@ -61,6 +63,7 @@ const Booking = ({ id }) => {
             };
 
             try {
+                setPageLoading(true);
                 await createBooking(value);
                 const Toast = MySwal.mixin({
                     toast: true,
@@ -86,6 +89,8 @@ const Booking = ({ id }) => {
                     text: `Only ${selected.spots} spots left!`,
                     icon: "warning",
                 });
+            } finally {
+                setPageLoading(false);
             }
         } else {
             Swal.fire({
